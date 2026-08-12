@@ -225,6 +225,39 @@
 
 <script>
 var ADMIN_PASS = "vijay@12345";
+const API_BASE_URL = "https://soleelite-backend.onrender.com";
+
+function getSessionId() {
+  let id = localStorage.getItem("soleelite_session_id");
+  if (!id) {
+    id = Date.now().toString(36) + Math.random().toString(36).slice(2);
+    localStorage.setItem("soleelite_session_id", id);
+  }
+  return id;
+}
+
+async function trackEvent(type, product) {
+  try {
+    await fetch(`${API_BASE_URL}/api/events`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type,
+        productId: String(product.id || ""),
+        productName: product.name,
+        sessionId: getSessionId(),
+        userAgent: navigator.userAgent,
+      }),
+    });
+  } catch (e) {
+    console.error("Event tracking failed", e);
+  }
+}
+
+function handleBuyClick(id) {
+  const p = products.find(x => String(x.id) === String(id));
+  if (p) trackEvent("click_buy", p);
+}
 var MY_TAG = "vijaytechst01-21";
 
 function affLink(url) {
@@ -644,7 +677,7 @@ function renderGrid(cat) {
       + '<div><span class="card-price">Rs.' + Number(p.price).toLocaleString('en-IN') + '</span>'
       + (p.orig ? '<span class="card-price-orig">Rs.' + Number(p.orig).toLocaleString('en-IN') + '</span>' : '')
       + '</div>'
-      + '<a class="amazon-btn" href="' + affLink(p.link) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">Buy on Amazon</a>'
+      + ' <a class="amazon-btn" href="' + affLink(p.link) + '" target="_blank" rel="noopener" onclick="handleBuyClick(\'' + p.id + '\'); event.stopPropagation()">Buy on Amazon</a>'
       + '</div></div></div>';
   }).join('');
 }
