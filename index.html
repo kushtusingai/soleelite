@@ -9,14 +9,12 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root { --bg:#111111;--bg2:#1c1c1c;--card:#222222;--gold:#C9A84C;--gold2:#e8c96e;--white:#f5f5f5;--muted:#888888;--border:#333333; }
   body { background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh; }
-  header { position:sticky;top:0;z-index:100;background:rgba(17,17,17,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px; }
-  .logo { font-family:'Playfair Display',serif;font-size:22px;font-weight:900;letter-spacing:2px;color:var(--gold); }
+  header { position:sticky;top:0;z-index:100;background:rgba(17,17,17,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px; }
+  .logo { font-family:'Playfair Display',serif;font-size:22px;font-weight:900;letter-spacing:2px;color:var(--gold);justify-self:start; }
   .logo span { color:var(--white); }
-  nav { display:flex;gap:28px;align-items:center; }
+  nav { display:flex;gap:28px;align-items:center;justify-self:center; }
   nav a { color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color 0.2s;cursor:pointer; }
   nav a:hover, nav a.active { color:var(--gold); }
-  .admin-btn { background:var(--gold);color:#111;padding:7px 16px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:background 0.2s; }
-  .admin-btn:hover { background:var(--gold2); }
   .hero { padding:80px 24px 60px;text-align:center;background:radial-gradient(ellipse at top,#2a2010 0%,var(--bg) 60%); }
   .hero-eyebrow { font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px; }
   .hero-title { font-family:'Playfair Display',serif;font-size:clamp(40px,7vw,80px);font-weight:900;line-height:1.05;margin-bottom:20px; }
@@ -73,37 +71,9 @@
   .modal-amazon-btn { display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#ff9900,#e47911);color:#111;border:none;width:100%;padding:16px;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;transition:opacity 0.2s;margin-bottom:10px; }
   .modal-amazon-btn:hover { opacity:0.9; }
   .modal-disclaimer { font-size:11px;color:var(--muted);text-align:center; }
-  .admin-modal { background:var(--bg2);border:1px solid var(--border);border-radius:14px;width:100%;max-width:900px;max-height:90vh;overflow-y:auto;padding:32px;position:relative; }
-  .admin-title { font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:24px;color:var(--gold); }
-  .admin-tabs { display:flex;margin-bottom:24px;border:1px solid var(--border);border-radius:8px;overflow:hidden; }
-  .admin-tab { flex:1;padding:10px;background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s; }
-  .admin-tab.active { background:var(--gold);color:#111;font-weight:600; }
-  .tab-pane { display:none; }
-  .tab-pane.active { display:block; }
-  .form-row { display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px; }
-  .form-group { display:flex;flex-direction:column;gap:6px;margin-bottom:14px; }
-  .form-group label { font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase; }
-  .form-group input, .form-group textarea, .form-group select { background:#2a2a2a;border:1px solid var(--border);color:var(--white);padding:10px 14px;border-radius:6px;font-family:'Inter',sans-serif;font-size:14px;transition:border-color 0.2s;outline:none; }
-  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color:var(--gold); }
-  .form-group textarea { resize:vertical;min-height:80px; }
-  .form-group select option { background:#2a2a2a; }
-  .submit-btn { background:var(--gold);color:#111;border:none;padding:12px 28px;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;width:100%;margin-top:6px;transition:background 0.2s; }
-  .submit-btn:hover { background:var(--gold2); }
-  .admin-product-list { display:flex;flex-direction:column;gap:12px;margin-bottom:16px; }
-  .admin-product-item { background:#2a2a2a;border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:center;gap:14px; }
-  .admin-product-img { width:56px;height:56px;object-fit:cover;border-radius:6px;background:#333;flex-shrink:0; }
-  .admin-product-info { flex:1;min-width:0; }
-  .admin-product-name { font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
-  .admin-product-meta { font-size:12px;color:var(--muted);margin-top:2px; }
-  .delete-btn { background:#3a1a1a;border:1px solid #6a2a2a;color:#ff6b6b;padding:7px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0; }
-  .delete-btn:hover { background:#6a2a2a; }
-  .login-box { max-width:340px;margin:0 auto;text-align:center; }
-  .login-box h3 { font-family:'Playfair Display',serif;font-size:20px;margin-bottom:20px; }
   .toast { position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;border:1px solid var(--gold);color:var(--white);padding:12px 24px;border-radius:8px;font-size:13px;z-index:9999;transition:transform 0.3s;white-space:nowrap; }
   .toast.show { transform:translateX(-50%) translateY(0); }
-  .reset-btn { background:#2a2a2a;border:1px solid #555;color:var(--muted);padding:8px 16px;border-radius:4px;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;display:block;margin:0 auto; }
-  .reset-btn:hover { border-color:var(--gold);color:var(--gold); }
-  @media(max-width:600px) { .form-row{grid-template-columns:1fr} nav{display:none} .hero-title{font-size:36px} }
+  @media(max-width:600px) { nav{display:none} .hero-title{font-size:36px} }
 </style>
 </head>
 <body>
@@ -117,7 +87,6 @@
     <a onclick="filterCat('Formal',this)">Formal</a>
     <a onclick="filterCat('Sports',this)">Sports</a>
   </nav>
-  <button class="admin-btn" onclick="openAdmin()">&#9881; Admin</button>
 </header>
 
 <section class="hero">
@@ -171,60 +140,9 @@
   </div>
 </div>
 
-<!-- ADMIN MODAL -->
-<div class="modal-overlay" id="adminModal" onclick="closeIfOutside(event,'adminModal')">
-  <div class="admin-modal">
-    <button class="modal-close" onclick="closeModal('adminModal')">x</button>
-    <div id="adminLoginBox" class="login-box">
-      <h3>Admin Login</h3>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="adminPass" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')adminLogin()">
-      </div>
-      <button class="submit-btn" onclick="adminLogin()">Login</button>
-    </div>
-    <div id="adminPanel" style="display:none">
-      <div class="admin-title">Admin Panel</div>
-      <div class="admin-tabs">
-        <button class="admin-tab active" onclick="switchTab('addTab',this)">+ Add Product</button>
-        <button class="admin-tab" onclick="switchTab('manageTab',this)">Manage Products</button>
-      </div>
-      <div class="tab-pane active" id="addTab">
-        <div class="form-row">
-          <div class="form-group"><label>Product Name *</label><input id="aName" placeholder="Nike Men Running Shoes"></div>
-          <div class="form-group"><label>Brand *</label><input id="aBrand" placeholder="Nike"></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label>Category *</label><select id="aCat"><option value="Running">Running</option><option value="Casual">Casual</option><option value="Formal">Formal</option><option value="Sports">Sports</option></select></div>
-          <div class="form-group"><label>Badge (optional)</label><input id="aBadge" placeholder="Best Seller / New Arrival"></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label>Sale Price (Rs) *</label><input id="aPrice" type="number" placeholder="4999"></div>
-          <div class="form-group"><label>Original MRP (Rs)</label><input id="aOrig" type="number" placeholder="7999"></div>
-        </div>
-        <div class="form-group"><label>Amazon Affiliate Link *</label><input id="aLink" placeholder="https://www.amazon.in/dp/XXXXXX/"></div>
-        <div class="form-group"><label>Product Image URL *</label><input id="aImg" placeholder="https://m.media-amazon.com/images/..."></div>
-        <div class="form-group"><label>Short Description (card pe)</label><input id="aShortDesc" placeholder="Lightweight mesh upper with cushioning"></div>
-        <div class="form-group"><label>Full Description (popup mein)</label><textarea id="aFullDesc" placeholder="Amazon ka full description paste karo..."></textarea></div>
-        <div class="form-group"><label>Features (ek per line)</label><textarea id="aFeatures" placeholder="Breathable mesh upper&#10;Rubber outsole&#10;Lightweight design"></textarea></div>
-        <div class="form-row">
-          <div class="form-group"><label>Rating (e.g. 4.5)</label><input id="aRating" type="number" step="0.1" max="5" placeholder="4.5"></div>
-          <div class="form-group"><label>Rating Count</label><input id="aRatingCount" placeholder="12,450 ratings"></div>
-        </div>
-        <button class="submit-btn" onclick="addProduct()">Add Product</button>
-      </div>
-      <div class="tab-pane" id="manageTab">
-        <div id="adminList" class="admin-product-list"></div>
-        <button class="reset-btn" onclick="resetToDefaults()">Reset to Default Products</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-var ADMIN_PASS = "vijay@12345";
 const API_BASE_URL = "https://soleelite-backend.onrender.com";
 
 function getSessionId() {
@@ -262,7 +180,6 @@ var MY_TAG = "vijaytechst01-21";
 
 function affLink(url) {
   if (!url) return '#';
-  // amzn.to short links - already affiliate hain, as-is use karo
   if (url.includes('amzn.to') || url.includes('amzn.in')) return url;
   try {
     var u = new URL(url);
@@ -342,7 +259,6 @@ var DEFAULT_PRODUCTS = [
     fullDesc:"Material: 100% Vegan Leather. Lifestyle: Casual, Party, Daily, Ethnic, Wedding. Cushioned footbed for comfort. Anti-skid and slip-resistant sole. Lightweight design for adults. Water-resistant construction.",
     features:["100% vegan leather","Anti-skid sole","Water resistant","Cushioned footbed"],
     rating:3.7, ratingCount:"11,230 ratings" },
-
   { id:11, name:"Puma Men Pacer Future Sneakers", brand:"Puma", category:"Casual", badge:"New Arrival", price:2799, orig:4999,
     img:"https://m.media-amazon.com/images/I/51SIl6mAQkL._SY695_.jpg",
     link:"https://amzn.to/4xTtkfZ",
@@ -413,227 +329,226 @@ var DEFAULT_PRODUCTS = [
     fullDesc:"Mochi leather loafers crafted from genuine leather for a premium look. Flat heel for all-day ease and comfort. Easy slip-on design - no laces needed. Perfect for casual outings, college, and travel. Lightweight and comfortable.",
     features:["Genuine leather upper","Easy slip-on design","Flat heel","Lightweight and comfortable"],
     rating:4.0, ratingCount:"21,000 ratings" },
-
   { id:21, name:"CULT Men Vortex Sneaker Shoes", brand:"CULT", category:"Running", badge:"New Arrival", price:1959, orig:4669,
     img:"https://m.media-amazon.com/images/I/61FqtXSKugL._SY675_.jpg",
-    link:"https://www.amazon.in/CULT-Vortex-Running-Shoes-CS704433UK9_UK9_Off/dp/B0F66H6WVD?crid=2L3RJOWAGBZIW&dib=eyJ2IjoiMSJ9.LoNob06HtHdiAYwudYS0Zio25WIBQTVTfUfSgOE1gb9Sk_w3Y1pkamrhWPmBnGhcw_75IlYMP3DdRSw7w1W1QRFLN_xMAAjVgJm-SkMEhb0woqwm1DvdbkpDTb3M3bx6-8wz3dCAvdFv7DWJqArDee9C5q4I_hctYqXSkTQfalpI7sGfBywa9J1AQrHPX1P8GjjlmkBUJBhFStUSnkuMz0IxUWlOsyOM1-oZ9lq5npT2VxO-HOhNQpAw_RrAahA6EI8AmeyuCt5IGdTED5DbZEvECcS51zBcsdRQjmJcwlM.FScc5ByNoFX2BVnxmKMaQlQiT_iZQLkNQ9lsDkkpkXM&dib_tag=se&keywords=cult%2Bmen%2Bvortex%2Bsneaker%2Bshoes&qid=1783879598&sprefix=cult%2Bmen%2Bvortex%2Bsneaker%2Bshoes%2Caps%2C345&sr=8-1-spons&aref=fWExjyCmcj&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=6396ca4a7e1f0ce5d1ea0bdc64c9123c&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/CULT-Vortex-Running-Shoes-CS704433UK9_UK9_Off/dp/B0F66H6WVD?tag=vijaytechst01-21",
     shortDesc:"Breathable jacquard upper with hollow-out EVA midsole for cushioned comfort.",
     fullDesc:"The CULT Vortex Sneaker is built for everyday running and gym wear. Breathable jacquard upper keeps feet cool during long runs. Hollow-out EVA midsole reduces weight while adding cushioned comfort. Non-slip outsole grip keeps you steady on any surface, and the secure lace-up closure locks in a snug fit.",
     features:["Breathable jacquard upper","Hollow-out EVA midsole","Cushioned comfort","Non-slip grip","Secure lace-up closure"],
     rating:3.8, ratingCount:"Amazon verified" },
   { id:22, name:"Puma Mens Galaxis Pro Running Shoe", brand:"Puma", category:"Running", badge:"Top Pick", price:3849, orig:6999,
     img:"https://m.media-amazon.com/images/I/517eK2jLBQL._SY695_.jpg",
-    link:"https://www.amazon.in/Puma-Black-Lime-Smash-Strong-Shoe-9UK-31176701/dp/B0DW9B3QDY?crid=1D2QS9CSOPJUU&dib=eyJ2IjoiMSJ9.Ig1JfY8-3vM4sA-VXSWpCRBE4t-hQ6ULD4WZr716KSGmQgt8lND9y95eFSSX-jqtrZCn22WzD6YdhZfKuLJE8G8IWcHSyL8Z8GfUFgDoXz7ETCMusW9G050MCgX8KN3emUekdLAaYLpY0Gvsfsw25qZSRQQx7xPz7SJkpprESM9pn3HM3UE_Z-eGrF6lTu7bZHjPENMqQKoq2xvy9By9zwtcfGnrISdPCVy82y9bwlhlfVrDfhwc1TOE5RGcoMXQNAFvmE7fBCEeipJzjZZr29velStMMx8pCIbI0zP_5tw.loUJOoD_az4wbNWlMhDJMUgbY3bs2DZDwLRVQGwmxj0&dib_tag=se&keywords=puma%2Bmens%2Bgalaxy%2Bpro%2Brunning%2Bshoes&qid=1783879473&sprefix=puma%2Bmens%2Bgal%2Caps%2C398&sr=8-1&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=5bd56c47ffb57066a5c477d3d9847f16&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Puma-Black-Lime-Smash-Strong-Shoe-9UK-31176701/dp/B0DW9B3QDY?tag=vijaytechst01-21",
     shortDesc:"Galaxis Pro running shoe in a bold Black-Lime Smash-Strong Gray colorway.",
     fullDesc:"Style: Running Shoe. Model: Galaxis Pro. Brand color: Black-Lime Smash-Strong Gray. Designed for daily training and running with a supportive, durable build. Care instructions: wipe with a clean dry cloth to keep it looking fresh.",
     features:["Model: Galaxis Pro","Black-Lime Smash-Strong Gray colorway","Durable running-focused build","Easy care - wipe clean"],
     rating:4.0, ratingCount:"Amazon verified" },
   { id:23, name:"Puma Unisex-Adult RushX Running Shoe", brand:"Puma", category:"Running", badge:"Best Seller", price:3299, orig:7499,
     img:"https://m.media-amazon.com/images/I/51TdU0BjlTL._SY695_.jpg",
-    link:"https://www.amazon.in/PUMA-RushX-10CELL-Comfort-Running/dp/B0GSGHRSZ9?crid=1SJ2NP1RWML3R&dib=eyJ2IjoiMSJ9.L8f4dcjEUdKHSW41nXLljt23d0qe1oTTAXaLBC6um_XoBp3EzdWm6l49ZPGnmw-VwMruelzKXBCSHP_GL8KlxhwMxIcjwVomPZFd1hdzhQbdzQGtXomDFBQc5TX7R_WgXibh4VRTzlEVX5nyWM_ZPtx8dIGQyKajhgLUHW8CkoEQTOdVCYRR_Htan7yS2Nu01U_uaeFD4w3O0l9NuXmdWynvs3qUdBcNmrCR3nSxOslAHWvtIA3JAag0PHGTDw2huNwra3ryFtxK4u3lgMZaCLKK338je85S21arAT6G87k.5Alf0YdwWJWQvTApVieuyhzn0_jKSUdb7i1bl1_obO0&dib_tag=se&keywords=best%2Brunning%2Bshoes%2Bfor%2Bmen&qid=1783876801&sprefix=Best%2Brunning%2B%2Caps%2C361&sr=8-59-spons&aref=UkcAOSMFTC&sp_csd=d2lkZ2V0TmFtZT1zcF9idGY&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=efecf925a3bc0217333f1d96b9b4dc39&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/PUMA-RushX-10CELL-Comfort-Running/dp/B0GSGHRSZ9?tag=vijaytechst01-21",
     shortDesc:"RushX running shoe in Black-Yellow Alert-Speed Blue, built with textile upper.",
     fullDesc:"Style: Running Shoe. Model: RushX. Brand color: Black-Yellow Alert-Speed Blue. Textile material upper designed for running activity, offering breathability and everyday durability for training sessions.",
     features:["Model: RushX","Textile material upper","Black-Yellow Alert-Speed Blue colorway","Built for running activity"],
     rating:3.6, ratingCount:"Amazon verified" },
   { id:24, name:"adidas Men Drogo M Running Shoe", brand:"adidas", category:"Running", badge:"Value Pick", price:1799, orig:3599,
     img:"https://m.media-amazon.com/images/I/61hGNA5utrL._SX675_.jpg",
-    link:"https://www.amazon.in/Adidas-FTWWHT-Running-Shoes-10-CL7633_10/dp/B07M8S2Y3L?crid=387LIZD11HMC3&dib=eyJ2IjoiMSJ9.Mwzo2DaGfrQ2Kw05rUrFeVQLlKXfX4e8SnV9TL2GKTBw0I1En9H2uCJeJL-3i8jtsS_OXhBvlolKdW85K-rSv_f5jGe-MLfr7WW-ors_H-ioZ6rHztOhdM329Gn5IN7rn6azJZ8gS7hLluwvWd1BXGnmw4D1FGqewjwWPCHWb2ALqG5LPmUUtH0LCPKIxHe3J0CNTUh3P7VGcUXKmX9sXye5MxahNAePPA91sr85kNN78lSHdnBipOAPuoMzLHzrQsv7O_K5SGRmjtcLDvw4N5t6ptrQT6XyhHdPpdyoaBc.PyN6HESu_TQpect2nHds8jjvIfcjob-8-hv2A5xLkJ4&dib_tag=se&keywords=running%2Bshoes%2Bfor%2Bman&qid=1783925453&sprefix=running%2B%2Caps%2C452&sr=8-45&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=37bf98caeaeb4a443f0a9e7f998b504a&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Adidas-FTWWHT-Running-Shoes-10-CL7633_10/dp/B07M8S2Y3L?tag=vijaytechst01-21",
     shortDesc:"Synthetic and mesh running shoe with regular ankle height and lace-up fastening.",
     fullDesc:"adidas Drogo M running shoes feature a synthetic and mesh construction for everyday running and sports wear. Lace-up fastening ensures a secure, adjustable fit. Regular ankle height design offers comfortable support for daily training runs.",
     features:["Synthetic and mesh upper","Lace-up fastening","Regular ankle height","Built for running and sports"],
     rating:4.0, ratingCount:"Amazon verified" },
   { id:25, name:"CULT Strix Men's Running Shoes", brand:"CULT", category:"Running", badge:"New Arrival", price:2499, orig:4069,
     img:"https://m.media-amazon.com/images/I/71jEDsJqEeL._SY675_.jpg",
-    link:"https://www.amazon.in/CULT-Strix-Running-Shoes-Blue_UK8/dp/B0F2TD2P53?crid=387LIZD11HMC3&dib=eyJ2IjoiMSJ9.KcTF65WI3BBk7uCkq4CReBPhWZTua0SsGRGc44gJTkbXru3HDcj3gWbNTHfc6ICYDPxkWjpodw3cy1VjekT4Aup_c9Qi0dqRpMyJGsES8eJJvaPOdtIZcWOO8nTQutTvNXtcpsPrVwO7LD7m5LBlcF9E4PNg5UWwdmS9Tl7LYDjHyhdGCiAYXBWMAgxArHQcsC0XMVw__Q1R7Mdq8MKbeaxOAp2TPGysixSG-z9JHqvBDJiCYnMqefcKTGHR_h1OLmU1q_dwusaepgnGt3MSp2wB1zAeKmsgfopPE1ialoU.Bqi1Wom3jCea0f5VtdCv1T4BJUn7k7nbFTh5arpX0kw&dib_tag=se&keywords=running%2Bshoes%2Bfor%2Bman&qid=1783926350&sprefix=running%2B%2Caps%2C452&sr=8-52-spons&xpid=Pek3CfiZkXadS&aref=6SPaNUkXTP&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGZfbmV4dA&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=36bfffa873608ce3a8dc5de42e3e9da9&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/CULT-Strix-Running-Shoes-Blue_UK8/dp/B0F2TD2P53?tag=vijaytechst01-21",
     shortDesc:"Breathable mesh upper with durable TPR outsole for superior grip on every run.",
     fullDesc:"CULT Strix running shoes are designed with a breathable mesh upper for maximum airflow, keeping feet cool, dry, and comfortable throughout your run. The durable TPR outsole delivers ultra grip, keeping you steady and confident on every stride.",
     features:["Breathable mesh upper","Ultra grip TPR outsole","Cool and dry comfort","Superior traction"],
     rating:3.7, ratingCount:"Amazon verified" },
   { id:26, name:"CULT Men's Flowtech Running Shoes", brand:"CULT", category:"Running", badge:"New Arrival", price:2359, orig:4599,
     img:"https://m.media-amazon.com/images/I/61OXQOs42uL._SY675_.jpg",
-    link:"https://www.amazon.in/CULT-Flowtech-Running-Shoes-Black-UK8/dp/B0FRS2W4LS?crid=387LIZD11HMC3&dib=eyJ2IjoiMSJ9.eij6Ou9Nymneuq6yTBggYH1BBVTCz1D-CR2fDvVosY68Jop8DYGlT14kvjYc0Epj3WarxXY0MZ2zN1GHJXxcNlgaoIpZHBLPqVwnJzIGWP8._KVto7M73VMl0alNhn39uwwLJriK54sUR89Tp_8c8xI&dib_tag=se&keywords=running%2Bshoes%2Bfor%2Bman&qid=1783926984&sprefix=running%2B%2Caps%2C452&sr=8-194-spons&xpid=Pek3CfiZkXadS&aref=8O0qcUimil&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGZfbmV4dA&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=06c527c6edd531f4333e034fbd7fe20a&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/CULT-Flowtech-Running-Shoes-Black-UK8/dp/B0FRS2W4LS?tag=vijaytechst01-21",
     shortDesc:"Seamless woven build for breathability with cushioned stability in every stride.",
     fullDesc:"CULT Flowtech running shoes feature a durable woven fabric with a smooth, seamless build that reduces irritation and enhances breathability, keeping every stride cool and distraction-free. The curved sole design encourages a smooth heel-to-toe transition with cushioned stability, while the moulded TPU heel counter locks in structured support.",
     features:["Seamless woven fabric","Breathable and irritation-free","Curved sole for smooth transition","Moulded TPU heel counter"],
     rating:3.9, ratingCount:"Amazon verified" },
   { id:27, name:"Campus Men's STRUT Running Shoes", brand:"Campus", category:"Running", badge:"Trending", price:1299, orig:2999,
     img:"https://m.media-amazon.com/images/I/61Esk3ymjAL._SY675_.jpg",
-    link:"https://www.amazon.in/Campus-Men-STRUT-Running-Shoes/dp/B0F671BLL4?content-id=amzn1.sym.3ad88b5a-5f9e-4f20-adc4-f37f3f50cbec%3Aamzn1.sym.3ad88b5a-5f9e-4f20-adc4-f37f3f50cbec&crid=387LIZD11HMC3&cv_ct_cx=running%2Bshoes%2Bfor%2Bman&keywords=running%2Bshoes%2Bfor%2Bman&pd_rd_i=B0F671BLL4&pd_rd_r=0a5aadcc-844a-4341-a1ec-54f5457164f4&pd_rd_w=LmUKy&pd_rd_wg=IVnuN&pf_rd_p=3ad88b5a-5f9e-4f20-adc4-f37f3f50cbec&pf_rd_r=8BQSQRP9YGZ5WTME4V73&qid=1783926984&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sprefix=running%2B%2Caps%2C452&sr=1-193-2ec22325-1003-449d-8aaf-c0bcc24717ae-spons&xpid=Pek3CfiZkXadS&aref=fCp8Wo56k9&sp_csd=d2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=19a0f6ff18e76fe87da09d3214bf42ec&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Campus-Men-STRUT-Running-Shoes/dp/B0F671BLL4?tag=vijaytechst01-21",
     shortDesc:"Breathable upper with patterned sole for confident grip on all surfaces.",
     fullDesc:"Campus STRUT running shoes come with a soft, breezy upper that promotes airflow, keeping feet fresh and comfortable throughout the day. The patterned sole design enhances traction, giving confident steps on all surfaces.",
     features:["Breathable upper","Patterned sole for grip","All-surface traction","Everyday running comfort"],
     rating:4.1, ratingCount:"Amazon verified" },
   { id:28, name:"SPARX Men Running Shoes", brand:"SPARX", category:"Running", badge:"Budget Pick", price:756, orig:870,
     img:"https://m.media-amazon.com/images/I/71qejDQwSrL._SY675_.jpg",
-    link:"https://www.amazon.in/Sparx-Black-White-Running-Shoes/dp/B01N3LYTDQ?crid=387LIZD11HMC3&dib=eyJ2IjoiMSJ9.AtSE_HXv6wkJYJcb0E6oTSIBO4jR9aebTegf2sHgaAdw0I1En9H2uCJeJL-3i8jtsS_OXhBvlolKdW85K-rSv_f5jGe-MLfr7WW-ors_H-ioZ6rHztOhdM329Gn5IN7rn6azJZ8gS7hLluwvWd1BXFMSYbfFWttl1sQfWBLZTEslQoBnBa36psrFR1aYCF-pJ0CNTUh3P7VGcUXKmX9sXye5MxahNAePPA91sr85kNN78lSHdnBipOAPuoMzLHzrQsv7O_K5SGRmjtcLDvw4N5t6ptrQT6XyhHdPpdyoaBc._md7TkQGoOBVC0qetO9BL_nQ_shEFmEoleJQJujJRqs&dib_tag=se&keywords=running%2Bshoes%2Bfor%2Bman&qid=1783928747&sprefix=running%2B%2Caps%2C452&sr=8-11&xpid=Pek3CfiZkXadS&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=f5e8aba2ea76fe9a53458f73c6b16aea&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Sparx-Black-White-Running-Shoes/dp/B01N3LYTDQ?tag=vijaytechst01-21",
     shortDesc:"Flat heel mesh walking-style shoe, lightweight with pull-on closure.",
     fullDesc:"Material type: Mesh. Closure type: Pull-On. Heel type: Flat. Water resistance level: Not water resistant. Sole material: Ethylene Vinyl Acetate (EVA). Style: Walking - a lightweight everyday option for running errands and casual training.",
     features:["Mesh material","Pull-on closure","Flat heel, EVA sole","Lightweight walking style"],
     rating:4.0, ratingCount:"Amazon verified" },
   { id:29, name:"U.S. Polo Assn. Mens Stefan Stylish Casual Sneaker Shoes", brand:"USPA", category:"Casual", badge:"Top Rated", price:2175, orig:3999,
     img:"https://m.media-amazon.com/images/I/71Jqccq3+aL._SY675_.jpg",
-    link:"https://www.amazon.in/Stefan-Stylish-Casual-Sneaker-Shoes/dp/B0B8T7TGQD?crid=MZZ4GKQR8Y6I&dib=eyJ2IjoiMSJ9.ayz0VRG2mWD1K-Oz23-TkcwbWeDAyiqEY7AOE354nF5peInQZDz6CPApS0rWxUDjyAvuqyF53CfPOfwkBgKTg7e3BaJX0oYZ8SOjTwOPPg_r1CebAWbv5lPODLwZPeFANS84PlfVjtGfysCAog14ndmPBlSgumyuFH5_cfeT9wskGsJgZtl73XxPE3-B12kqefrHVunTJUgdoWkpeIKtO2ZcKV3dwOF42xJwLGgE5FUTa_YEOnVAdadLoNWmbXY0hhdLCRuXdFfEc27cZ5avKHnbIqgphMIroIBKhn_Z-ow.huHjI_KAIwk3CV4hLgJD1i89o5T6HAoeRGpohPg6fQI&dib_tag=se&keywords=casual%2Bshoes%2Bfor%2Bmen&qid=1784002893&sprefix=casual%2Bshoes%2Bfor%2Bmen%2Caps%2C392&sr=8-6&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=4c00806ea2ff3167d5e93749dd92953b&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Stefan-Stylish-Casual-Sneaker-Shoes/dp/B0B8T7TGQD?tag=vijaytechst01-21",
     shortDesc:"Wider last design with cushioned foam interiors for all-day comfort.",
     fullDesc:"USPA Stefan sneakers feature a wider last for all-day comfort. Flexible Strobel construction paired with a durable rubber sole. Stretchable laces make them easy to slip in and out of. Cushioned foam interiors and footbed keep feet comfortable through long wear.",
     features:["Wider last for all-day comfort","Strobel construction, durable rubber sole","Stretchable laces - easy slip-in","Cushioned foam interiors and footbed"],
     rating:4.3, ratingCount:"Amazon verified" },
   { id:30, name:"Layasa Sneaker for Men - Comfort & Stylish Casual Shoes", brand:"Layasa", category:"Casual", badge:"Budget Pick", price:499, orig:1999,
     img:"https://m.media-amazon.com/images/I/71vkYixifSL._SY675_.jpg",
-    link:"https://www.amazon.in/layasa-White-Casual-Shoes-Sneaker/dp/B0GD1YDPFH?crid=MZZ4GKQR8Y6I&dib=eyJ2IjoiMSJ9.ayz0VRG2mWD1K-Oz23-TkcwbWeDAyiqEY7AOE354nF5peInQZDz6CPApS0rWxUDjyAvuqyF53CfPOfwkBgKTg7e3BaJX0oYZ8SOjTwOPPg_r1CebAWbv5lPODLwZPeFANS84PlfVjtGfysCAog14ndmPBlSgumyuFH5_cfeT9wskGsJgZtl73XxPE3-B12kqefrHVunTJUgdoWkpeIKtO2ZcKV3dwOF42xJwLGgE5FUTa_YEOnVAdadLoNWmbXY0hhdLCRuXdFfEc27cZ5avKHnbIqgphMIroIBKhn_Z-ow.huHjI_KAIwk3CV4hLgJD1i89o5T6HAoeRGpohPg6fQI&dib_tag=se&keywords=casual%2Bshoes%2Bfor%2Bmen&qid=1784002893&sprefix=casual%2Bshoes%2Bfor%2Bmen%2Caps%2C392&sr=8-55&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=0ad685fca96fa23f929232a65595ed8e&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/layasa-White-Casual-Shoes-Sneaker/dp/B0GD1YDPFH?tag=vijaytechst01-21",
     shortDesc:"Trendy sporty design with breathable lining and durable Airmix rubber sole.",
     fullDesc:"Layasa sneakers offer a trendy and sporty design for a bold, modern look. Breathable inner lining keeps feet fresh and sweat-free, suitable for daily use or light sports activity. Durable Airmix rubber sole is anti-slip and wear-resistant, ensuring strong grip and long-lasting use.",
     features:["Trendy sporty design","Breathable inner lining","Durable Airmix rubber sole","Anti-slip, wear-resistant outsole"],
     rating:4.0, ratingCount:"Amazon verified" },
   { id:31, name:"ASIAN Casual Sneaker Shoes for Men", brand:"Asian", category:"Casual", badge:"Comfort Pick", price:698, orig:1199,
     img:"https://m.media-amazon.com/images/I/71OkgU7UC7L._SY675_.jpg",
-    link:"https://www.amazon.in/ASIAN-Synthetic-Lightweight-Comfortable-Moscow-12/dp/B0CVGWW3F2?content-id=amzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01%3Aamzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01&dib=eyJ2IjoiMSJ9.P2E4_qia0g-AAVZ4oxsmLRxzOJ2RXl5qziAVRj9pWOo67-Jk8DFrdM35LltrvXAKaDHwufMYZbIZyStZZEFRYvpOsCvcPaV0YY1Kz8Da15RxW9ndSLH8G18Qhp6nM1A0ZLcgMKAPz18c12pRVApkjpsy5EDOp_RZMSLkd_EJaGIioSvk2hP4cHJC4_mHeYkpEBQWx6X_X9gcMgRW7HIzNqfZG6yaPPItFANDVr7tlhGBsW9ubrxYk-X3fRbz8sgsuvm0n0ysdJHQU80kZG5mgqaA5qzhj68QeoSb3HHKvjQ.hO2jnVOp-1BaYK8N0aH41PKBiCrkhERVh3GX6nVgR1c&dib_tag=se&keywords=casual%2Bshoes&pd_rd_r=3b491ac7-fe62-42c6-91a4-d46b50877ee2&pd_rd_w=qorcy&pd_rd_wg=AiL1r&qid=1784003895&sr=8-28&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=846169e571fe944f35a44c6730b0c7bd&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/ASIAN-Synthetic-Lightweight-Comfortable-Moscow-12/dp/B0CVGWW3F2?tag=vijaytechst01-21",
     shortDesc:"Height-increasing PVC outsole with memory foam for extra comfort and grip.",
     fullDesc:"ASIAN casual sneakers feature a height-increasing, non-marking PVC outsole made with a lightweight compound and orthopedic memory foam for extra comfort and perfect grip. Breathable synthetic upper is easily washable and suitable for all seasons. Padded collar and cushioned insole offer all-day comfort, ideal for casual wear.",
     features:["Height-increasing PVC outsole","Orthopedic memory foam comfort","Breathable, washable synthetic upper","Padded collar, cushioned insole"],
     rating:3.8, ratingCount:"Amazon verified" },
   { id:32, name:"BRUTON Retro Classics-620 Men's Casual Sneakers", brand:"BRUTON", category:"Casual", badge:"Top Rated", price:750, orig:2999,
     img:"https://m.media-amazon.com/images/I/71PRQStw8BL._SY675_.jpg",
-    link:"https://www.amazon.in/BRUTON-Classics-620-Sneakers-Lightweight-Comfortable/dp/B0GX1L94GV?content-id=amzn1.sym.1afc7779-660c-4e75-a0f3-887d2d69b5c4%3Aamzn1.sym.1afc7779-660c-4e75-a0f3-887d2d69b5c4&cv_ct_cx=casual%2Bshoes&keywords=casual%2Bshoes&pd_rd_i=B0GX1L94GV&pd_rd_r=ed10c046-ff1a-4db6-b99d-87d3e64a9111&pd_rd_w=cjMsl&pd_rd_wg=rHdNH&pf_rd_p=1afc7779-660c-4e75-a0f3-887d2d69b5c4&pf_rd_r=C176W5HBT2QDGWJ9BF8H&qid=1784003895&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sr=1-4-2907eac4-8056-42c7-8014-fdf7bd4c5395-spons&aref=1emOHZyTwu&sp_csd=d2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWNfYnRm&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=aed881304b88ca86b08c6c04a551eb4a&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/BRUTON-Classics-620-Sneakers-Lightweight-Comfortable/dp/B0GX1L94GV?tag=vijaytechst01-21",
     shortDesc:"Lightweight EVA sole sneaker with breathable mesh upper for daily wear.",
     fullDesc:"BRUTON Retro Classics-620 sneakers feature a lightweight EVA sole delivering superior cushioning and flexibility for everyday comfort. Breathable mesh upper keeps feet cool, fresh, and sweat-free all day. Soft cushioned inner sole enhances comfort and reduces fatigue during long wear. Perfect for casual outings, office, travel, and lifestyle use, with a stylish lace-up design offering a secure, modern fit.",
     features:["Lightweight EVA sole","Breathable mesh upper","Soft cushioned inner sole","Stylish secure lace-up design"],
     rating:5.0, ratingCount:"Amazon verified" },
   { id:33, name:"Puma Smashic Comfort Casual Sneakers", brand:"Puma", category:"Casual", badge:"Best Seller", price:1573, orig:4499,
     img:"https://m.media-amazon.com/images/I/41NtbP4mYoL._SY695_.jpg",
-    link:"https://www.amazon.in/Puma-Unisex-Adult-Smashic-Black-Matte-Sneaker/dp/B0BSLJ245T?crid=EYGCPTZ8JJU2&dib=eyJ2IjoiMSJ9.ayz0VRG2mWD1K-Oz23-TkXokGcbZnu7IkpK5QNAS17pI5Y1N_IyfmSXrugv3uOuG0i3F83kZDpyAeZyZG-uxf8JqYUZGSluQ4I64mSOR1S96OQgGl2ODfP-eQy9SNc-vj2pYXnb_ymMufryDs5bxK-8RC0BVkSUA423zjtlmKHsrjXFMqGqNNcrTn0gLU43SqnftMLiILhV2INRXKqzuBKDtBD4Sq9mjWKDbIZRCWGaJwZfUQHZ1dKHQLmEbvKI0P3_HBMsivmWyD_eo70xf2QzQM3shG_EMCy0nB1Cu0vQ.PPbabKtOMcgCze1dmzIWjnP6l8OK7ahG6vX6lkgXoj4&dib_tag=se&keywords=best%2Bcasual%2Bshoes%2Bfor%2Bmen&qid=1784097108&sprefix=best%2Bcasual%2Bshoes%2Bfor%2Bmen%2Caps%2C346&sr=8-10&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=fce6134f580720dbc3d981b7edf11335&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Puma-Unisex-Adult-Smashic-Black-Matte-Sneaker/dp/B0BSLJ245T?tag=vijaytechst01-21",
     shortDesc:"Smashic sneaker in Black-Matte Silver with rubber build for everyday basics.",
     fullDesc:"Style: Sneaker. Model: Smashic. Brand color: Black-Matte Silver. Rubber material construction designed for everyday casual wear and basic activity, offering durability and a clean, versatile look.",
     features:["Model: Smashic","Black-Matte Silver colorway","Rubber material build","Everyday casual basics"],
     rating:4.0, ratingCount:"Amazon verified" },
   { id:34, name:"HAUX Men's Retro Low Top Sneakers", brand:"HAUX", category:"Casual", badge:"New Arrival", price:949, orig:1999,
     img:"https://m.media-amazon.com/images/I/61fkxY3Nd1L._SY675_.jpg",
-    link:"https://www.amazon.in/HAUX-Sneakers-Comfortable-Lightweight-Footwear/dp/B0GTVYMCMG?crid=EYGCPTZ8JJU2&dib=eyJ2IjoiMSJ9.XmSB-XEtASQ3SbMFYN6Sb7GXyjIfCqC9DCqee1PUgeXLqGBDuHkf9ir20fQtPrpMmDciUFK-XTOoYkz_Fn0ttoiQnr3qkIF2HGcmvBRt5p4.6p1YeqE9uRWMLcUEGr7qljMj0lRhB-pT6FVNcHMlp_c&dib_tag=se&keywords=best%2Bcasual%2Bshoes%2Bfor%2Bmen&qid=1784097568&sprefix=best%2Bcasual%2Bshoes%2Bfor%2Bmen%2Caps%2C346&sr=8-51-spons&xpid=R_AXGH7LXCV4u&aref=O3sQsXtluD&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGZfbmV4dA&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=6265e80dbfbb67398a50d24692e915b4&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/HAUX-Sneakers-Comfortable-Lightweight-Footwear/dp/B0GTVYMCMG?tag=vijaytechst01-21",
     shortDesc:"Retro low-top gum sole sneaker with a timeless German army trainer look.",
     fullDesc:"HAUX Retro Low Top sneakers bring a classic German army trainer silhouette with a textured carbon side panel and signature gum sole - a timeless low-top design that pairs with jeans, chinos and trousers alike. Soft cushioned footbed and lightweight construction keep you comfortable from morning commute to late evening, while the padded collar and soft inner lining prevent rubbing during long wear.",
     features:["Retro low-top gum sole design","Textured carbon side panel","Soft cushioned footbed","Padded collar, soft inner lining"],
     rating:3.7, ratingCount:"Amazon verified" },
   { id:35, name:"Boldfit Sneakers for Man - Lightweight Comfortable Sneakers", brand:"Boldfit", category:"Casual", badge:"Value Pick", price:1249, orig:4499,
     img:"https://m.media-amazon.com/images/I/61wyIknxy9L._SY675_.jpg",
-    link:"https://www.amazon.in/Boldfit-Sneakers-Lightweight-Comfortable-DripBloc/dp/B0FYQLYS1B?crid=EYGCPTZ8JJU2&dib=eyJ2IjoiMSJ9.jFRVeeGAsQL-wgkMXJuqByrCIjCfnHNZvKdai5J94h_HJqA6vSVLF5xIWoGck7V7w7PBIeKLgEea0N9TXpFgzW5lmyjJNaD14z8TKoDOBJxVnGDLCC0yUBeep_Gs-OtPJeu8-8MVlKUl9jqa4L2HCgM0m3xzGTwSoeKi8ZQHBvGp_0uDyOcMCNGn2-3xt4E51NPkgz1-7D3C3TQ9L1dKdXQlcKJk4oo3BIj-pUPdRFkYlMUAHjGWyn80Ck8M89d0Iry69k8_fKK84-5AWMrNoLulLMlWmMg4olKehnTprxc.oH7hfceiDmF-Fw90t4ig2Kr4NBEN76tFu44UgM1wZ7Y&dib_tag=se&keywords=best%2Bcasual%2Bshoes%2Bfor%2Bmen&qid=1784097568&sprefix=best%2Bcasual%2Bshoes%2Bfor%2Bmen%2Caps%2C346&sr=8-85&xpid=R_AXGH7LXCV4u&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=43959a746540c35fbcc99ce56cae3c82&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Boldfit-Sneakers-Lightweight-Comfortable-DripBloc/dp/B0FYQLYS1B?tag=vijaytechst01-21",
     shortDesc:"Premium PU leather and suede upper sneaker for stylish everyday comfort.",
     fullDesc:"The Boldfit DripBloc sneakers combine premium synthetic leather with sleek suede for a perfect mix of style and comfort. The faux leather provides a durable, stylish look for daily wear, while the soft suede adds a classic, refined touch. Ideal for both casual outings and light activity, this combination ensures your feet stay comfortable while you stay on-trend.",
     features:["Premium PU leather and suede upper","Durable, stylish daily-wear look","Comfortable for casual and light activity","On-trend refined finish"],
     rating:4.0, ratingCount:"Amazon verified" },
   { id:36, name:"USPA U.S. Polo Assn Men Anton Stylish Casual Sneaker Shoe", brand:"USPA", category:"Casual", badge:"Top Rated", price:1579, orig:3599,
     img:"https://m.media-amazon.com/images/I/61K-c71v+EL._SY695_.jpg",
-    link:"https://www.amazon.in/Anton-White-Stylish-Casual-Sneaker/dp/B0F8BNMT3P?crid=EYGCPTZ8JJU2&dib=eyJ2IjoiMSJ9._yW-gR7tMiT0DGcxzI9GPWkJfBWhCDPJ1CV9SxO8dilp-__u69LPe9HNsLeBvMT9PwVlIMuvyjK7B-Mz0ue9E7bhulmk_0LJj1nniiG0wSYgMhNTxClvs1UCXOwxVuWkbGCMxQb6mqXvPt8aWE3E6Rfn0kKE2I_WK-Z2IKO6kTxaaqc61m2Bm4JqCWVBzDuoaxnZKligxVmf5V293ZwPSCiZqVBoLKzN8ZLWYkF5y52fnltIHjBHbjwGuuhU1VYzygLC4sxR32xtcw2K-h8sFOcDjQqiUXTjkHjQTk3b8j4.PKDT8hgOXJsPSfQHwkveMj0JyQzzQdw9_s-n2jUtoDE&dib_tag=se&keywords=best%2Bcasual%2Bshoes%2Bfor%2Bmen&qid=1784098266&sprefix=best%2Bcasual%2Bshoes%2Bfor%2Bmen%2Caps%2C346&sr=8-128&xpid=R_AXGH7LXCV4u&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=726ef4bbc03c844cc40b4656990b4ebe&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Anton-White-Stylish-Casual-Sneaker/dp/B0F8BNMT3P?tag=vijaytechst01-21",
     shortDesc:"Anton 4.0 style sneaker in off-white with PU upper and rubber sole.",
     fullDesc:"Style: Anton 4.0. Colour: Off White. Upper material: PU. Sole material: Rubber. Made in India - a clean, stylish casual sneaker built for everyday versatility.",
     features:["Style: Anton 4.0","Off White colourway","PU upper, rubber sole","Made in India"],
     rating:4.2, ratingCount:"Amazon verified" },
   { id:37, name:"Liberty Leap7x AMAZER-3E Casual Lacing Sneakers", brand:"Liberty", category:"Casual", badge:"Comfort Pick", price:719, orig:1799,
     img:"https://m.media-amazon.com/images/I/61k0jtnXxRL._SY695_.jpg",
-    link:"https://www.amazon.in/Liberty-LEAP7X-AMAZER-3E-Casual-Lacing/dp/B0DT18XQ8P?crid=EYGCPTZ8JJU2&dib=eyJ2IjoiMSJ9._yW-gR7tMiT0DGcxzI9GPWkJfBWhCDPJ1CV9SxO8dilp-__u69LPe9HNsLeBvMT9PwVlIMuvyjK7B-Mz0ue9E7bhulmk_0LJj1nniiG0wSYgMhNTxClvs1UCXOwxVuWkbGCMxQb6mqXvPt8aWE3E6Rfn0kKE2I_WK-Z2IKO6kTxaaqc61m2Bm4JqCWVBzDuoaxnZKligxVmf5V293ZwPSCiZqVBoLKzN8ZLWYkF5y52fnltIHjBHbjwGuuhU1VYzygLC4sxR32xtcw2K-h8sFOcDjQqiUXTjkHjQTk3b8j4.PKDT8hgOXJsPSfQHwkveMj0JyQzzQdw9_s-n2jUtoDE&dib_tag=se&keywords=best%2Bcasual%2Bshoes%2Bfor%2Bmen&qid=1784098266&sprefix=best%2Bcasual%2Bshoes%2Bfor%2Bmen%2Caps%2C346&sr=8-131&xpid=R_AXGH7LXCV4u&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=2378340e36f7dbce0fc4b02690aeebe1&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Liberty-LEAP7X-AMAZER-3E-Casual-Lacing/dp/B0DT18XQ8P?tag=vijaytechst01-21",
     shortDesc:"Cushioned insole sneaker with padded interior for all-day fatigue-free comfort.",
     fullDesc:"Liberty Leap7x AMAZER-3E sneakers are designed for all-day comfort with a soft cushioned insole that provides superior support while walking, running, or working out. The padded interior and snug lace-up design ensure a secure and fatigue-free experience - ideal for casual outings, gym sessions, or daily wear.",
     features:["Soft cushioned insole","Padded interior for support","Snug lace-up design","Great for casual and gym use"],
     rating:4.0, ratingCount:"Amazon verified" },
   { id:38, name:"Campus Men Og-35 Sneakers", brand:"Campus", category:"Casual", badge:"Trending", price:999, orig:1999,
     img:"https://m.media-amazon.com/images/I/61XbwOkS8mL._SY675_.jpg",
-    link:"https://www.amazon.in/Campus-Mens-OG-35-Sneakers-L-Gry/dp/B0DJQT3KZN?content-id=amzn1.sym.5298acb7-37ab-4bc0-a659-56dfae35672f%3Aamzn1.sym.5298acb7-37ab-4bc0-a659-56dfae35672f&crid=EYGCPTZ8JJU2&cv_ct_cx=best%2Bcasual%2Bshoes%2Bfor%2Bmen&keywords=best%2Bcasual%2Bshoes%2Bfor%2Bmen&pd_rd_i=B0DJQT3KZN&pd_rd_r=9315396d-e8d9-4d03-a427-517180c9d458&pd_rd_w=CALos&pd_rd_wg=ZOlzK&pf_rd_p=5298acb7-37ab-4bc0-a659-56dfae35672f&pf_rd_r=NAA5YA2PT3CZBJK3N0QG&qid=1784098266&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sprefix=best%2Bcasual%2Bshoes%2Bfor%2Bmen%2Caps%2C346&sr=1-100-39d2cf51-924d-44a4-921d-0c8fa4cce3c9-spons&xpid=R_AXGH7LXCV4u&aref=kiizQibWXO&sp_csd=d2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWNfYnRm&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=7abfae4f759b5b5968ee4fcf2b6ccf80&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Campus-Mens-OG-35-Sneakers-L-Gry/dp/B0DJQT3KZN?tag=vijaytechst01-21",
     shortDesc:"Pillofoam cushioned sneaker with lightweight, durable EVA outsole.",
     fullDesc:"Campus Og-35 sneakers feature Pillofoam technology that offers impact cushioning for a comfortable stride, making them ideal for all-day wear. The EVA outsole ensures a lightweight feel and long-lasting durability, perfect for men on the go.",
     features:["Pillofoam impact cushioning","Lightweight EVA outsole","Comfortable all-day stride","Durable, long-lasting build"],
     rating:4.2, ratingCount:"Amazon verified" },
   { id:39, name:"Centrino Formal Shoe for Men", brand:"Centrino", category:"Formal", badge:"Budget Pick", price:749, orig:2199,
     img:"https://m.media-amazon.com/images/I/71CVFHLepJL._SY675_.jpg",
-    link:"https://www.amazon.in/Centrino-Black-Formal-Shoe-64056/dp/B0CFY2TMGJ?crid=908BGTF5YKUQ&dib=eyJ2IjoiMSJ9.ig3Cjrgc_iN3ULu8A8Q-VzviZB83Uk6AQp4CgSe2XXAgngOcdFUb2kdpQJ_nxP1LFtn3RZvSuSdRdHyPLG26s2WtJyUHnjezAy7htxKqO1be1CRfd0SUWDkVTO_fouH3TtqMlf88Gby1eXUD2JJzO0jOQ71INQUwoTvLCqeos5IVS1Uuuvz0tzKpm7FGrisqyygrNhOEH2fbF6pNgkwc1H5JIj6cCMCRlolscM000y8C0fVEAE8xvcNpfMgTPN7B0E7VKJOm3_H_-mvidTSY5FJLllDDsB1ZbCFCS1c-Ccc.7sCRXFrh9oNxsWZK7z4IAptKez2VWfFt_IELRrx7R_Q&dib_tag=se&keywords=formal%2Bshoes%2Bfor%2Bmen&qid=1784182574&sprefix=formal%2Bshoes%2Bfor%2Bmen%2Bb%2Caps%2C409&sr=8-24-spons&aref=hdAdix2WuP&sp_csd=d2lkZ2V0TmFtZT1zcF9tdGY&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=af82e596a4f35c9f760afb4d1dbd640e&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Centrino-Black-Formal-Shoe-64056/dp/B0CFY2TMGJ?tag=vijaytechst01-21",
     shortDesc:"Breathable upper with cushioned comfortable lining for daily office wear.",
     fullDesc:"Centrino Comfort Shoe is made up of a full breathable upper and cushioned comfortable lining - a true combination of style and class with clean lines and timeless style. Perfect for daily wear, these shoes are full of comfort and can be worn all day long as the insoles are filled with extra cushioning, giving your heel a break with every step while resisting moisture and inhibiting bacterial growth.",
     features:["Breathable upper","Cushioned comfortable lining","Extra cushioned insole","Moisture and bacteria resistant"],
     rating:3.8, ratingCount:"Amazon verified" },
   { id:40, name:"Bata Men's Lace-up Formal Shoes", brand:"Bata", category:"Formal", badge:"Office Pick", price:929, orig:1299,
     img:"https://m.media-amazon.com/images/I/51H+tcZFb2L._SY695_.jpg",
-    link:"https://www.amazon.in/Bata-Mens-Lace-up-Formal-Shoes/dp/B0B94X3LQR?crid=908BGTF5YKUQ&dib=eyJ2IjoiMSJ9.ig3Cjrgc_iN3ULu8A8Q-VzviZB83Uk6AQp4CgSe2XXAgngOcdFUb2kdpQJ_nxP1LFtn3RZvSuSdRdHyPLG26s2WtJyUHnjezAy7htxKqO1be1CRfd0SUWDkVTO_fouH3TtqMlf88Gby1eXUD2JJzO0jOQ71INQUwoTvLCqeos5IVS1Uuuvz0tzKpm7FGrisqyygrNhOEH2fbF6pNgkwc1H5JIj6cCMCRlolscM000y8C0fVEAE8xvcNpfMgTPN7B0E7VKJOm3_H_-mvidTSY5FJLllDDsB1ZbCFCS1c-Ccc.7sCRXFrh9oNxsWZK7z4IAptKez2VWfFt_IELRrx7R_Q&dib_tag=se&keywords=formal%2Bshoes%2Bfor%2Bmen&qid=1784182574&sprefix=formal%2Bshoes%2Bfor%2Bmen%2Bb%2Caps%2C409&sr=8-39&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=16805ee8cd5f1fa81b2c04e1388c109b&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Bata-Mens-Lace-up-Formal-Shoes/dp/B0B94X3LQR?tag=vijaytechst01-21",
     shortDesc:"PVC synthetic lace-up formal shoe with a durable cellulose board sole.",
     fullDesc:"Material: PVC Synthetic. Sole: Cellulose Board. Colour: Black. A classic lace-up formal shoe suited for daily office wear. Care instructions: wipe with a clean and dry cloth to remove dust.",
     features:["PVC synthetic upper","Cellulose board sole","Classic black colourway","Easy care - wipe clean"],
     rating:3.8, ratingCount:"Amazon verified" },
   { id:41, name:"Centrino Formal Shoes for Men", brand:"Centrino", category:"Formal", badge:"Budget Pick", price:549, orig:1899,
     img:"https://m.media-amazon.com/images/I/61NznwplNEL._SY675_.jpg",
-    link:"https://www.amazon.in/Centrino-Mens-Formals-Shoes-8233-1_Black_10/dp/B0BC1ZQDT1?dib=eyJ2IjoiMSJ9.VUtzpoc9n8VOkmUULhTZOvnS39Eg_REyBhW2mQaPppgvV7mOlgjv8rKO8_CY-XRX6GxtuieFXXCoC6oXkIjHqcq7j5sXMJ8lo4c7_r-2x-2sVXZSKV1d0-Edsh-UmCED2_y_zxcBVlucL35ndp7HGBQLriFLHlHq0NyPvj5rVT6YbV4hmUk94Gsl8s0r47Hek2ig9WT1uANeXo6WQQTL9gorGUWbnnM5nCtF0xwhkbHD0YGJvthL2ub4ff2GkeJ3ayc5gNTLS1LaULBX6OTx70kqvgk8twremrcO6qsUhc8.c2ozbxYM44dg0iR6X350F4ISOxHiUckskIAz9cNAIqw&dib_tag=se&qid=1784183207&refinements=p_n_g-1003446729111%3A30318714031&rnid=30318709031&s=shoes&sr=1-11&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=f62370a9f1a7355b1a3bea9bf96974cb&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Centrino-Mens-Formals-Shoes-8233-1_Black_10/dp/B0BC1ZQDT1?tag=vijaytechst01-21",
     shortDesc:"Non-slip breathable dress shoe with a soft cushioned footbed.",
     fullDesc:"Natural non-slip comfortable breathable dress shoes with soft and breathable linings that provide a luxurious foot environment for business casual wear. Fashion lace-up front offers a secure and reliable fit, while the lightly cushioned footbed massages the foot with every step.",
     features:["Non-slip breathable design","Soft breathable lining","Fashion lace-up front","Lightly cushioned footbed"],
     rating:4.0, ratingCount:"Amazon verified" },
   { id:42, name:"Liberty Fortune HOL-131E Men's Formal Derby Shoes", brand:"Liberty", category:"Formal", badge:"Office Pick", price:809, orig:2299,
     img:"https://m.media-amazon.com/images/I/61WuQaWNijL._SY675_.jpg",
-    link:"https://www.amazon.in/Liberty-HOL-131E-Comfortable-Lightweight-Cushioned/dp/B0DHP5LC9P?dib=eyJ2IjoiMSJ9.VUtzpoc9n8VOkmUULhTZOvnS39Eg_REyBhW2mQaPppgvV7mOlgjv8rKO8_CY-XRX6GxtuieFXXCoC6oXkIjHqcq7j5sXMJ8lo4c7_r-2x-2sVXZSKV1d0-Edsh-UmCED2_y_zxcBVlucL35ndp7HGBQLriFLHlHq0NyPvj5rVT6YbV4hmUk94Gsl8s0r47Hek2ig9WT1uANeXo6WQQTL9gorGUWbnnM5nCtF0xwhkbHD0YGJvthL2ub4ff2GkeJ3ayc5gNTLS1LaULBX6OTx70kqvgk8twremrcO6qsUhc8.c2ozbxYM44dg0iR6X350F4ISOxHiUckskIAz9cNAIqw&dib_tag=se&qid=1784183207&refinements=p_n_g-1003446729111%3A30318714031&rnid=30318709031&s=shoes&sr=1-26&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=3ff95643a49ca171f84c97f6ec2b65b7&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Liberty-HOL-131E-Comfortable-Lightweight-Cushioned/dp/B0DHP5LC9P?tag=vijaytechst01-21",
     shortDesc:"Timeless derby-style lace-up shoes for a clean, polished professional look.",
     fullDesc:"These derby-style lace-up shoes offer timeless styling for modern professionals who prefer a clean, polished look. Designed to complement both suits and semi-formal attire, they're an excellent pick for office meetings, wedding functions, or daily wear - dependable style with a modern finish.",
     features:["Timeless derby styling","Clean, polished professional look","Pairs with suits and semi-formals","Comfortable, lightweight cushioning"],
     rating:3.4, ratingCount:"Amazon verified" },
   { id:43, name:"Hush Puppies Aaron Men's Slip-on Formal Shoes", brand:"Hush Puppies", category:"Formal", badge:"Premium", price:2139, orig:3299,
     img:"https://m.media-amazon.com/images/I/51Ey85cyxHL._SY695_.jpg",
-    link:"https://www.amazon.in/Hush-Puppies-Aaron-Black-8556000/dp/B0CF8RCK9X?dib=eyJ2IjoiMSJ9.VUtzpoc9n8VOkmUULhTZOvnS39Eg_REyBhW2mQaPppgvV7mOlgjv8rKO8_CY-XRX6GxtuieFXXCoC6oXkIjHqcq7j5sXMJ8lo4c7_r-2x-2sVXZSKV1d0-Edsh-UmCED2_y_zxcBVlucL35ndp7HGBQLriFLHlHq0NyPvj5rVT6YbV4hmUk94Gsl8s0r47Hek2ig9WT1uANeXo6WQQTL9gorGUWbnnM5nCtF0xwhkbHD0YGJvthL2ub4ff2GkeJ3ayc5gNTLS1LaULBX6OTx70kqvgk8twremrcO6qsUhc8.c2ozbxYM44dg0iR6X350F4ISOxHiUckskIAz9cNAIqw&dib_tag=se&qid=1784183207&refinements=p_n_g-1003446729111%3A30318714031&rnid=30318709031&s=shoes&sr=1-42&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=b72996aee1f51955964b04d89bb18f2e&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Hush-Puppies-Aaron-Black-8556000/dp/B0CF8RCK9X?tag=vijaytechst01-21",
     shortDesc:"Comfortable, breathable genuine leather slip-on formal shoe in black.",
     fullDesc:"Hush Puppies Aaron slip-on formal shoes are comfortable and breathable, crafted from genuine leather in classic black. Easy to maintain - simply clean with a dry cloth to keep them looking sharp for office and formal occasions.",
     features:["Comfortable and breathable","Genuine leather construction","Classic black colour","Easy dry-cloth care"],
     rating:4.1, ratingCount:"Amazon verified" },
   { id:44, name:"STANPHORD Men Glossy Formal Slip-On Shoes", brand:"STANPHORD", category:"Formal", badge:"Comfort Pick", price:1199, orig:1999,
     img:"https://m.media-amazon.com/images/I/71cQOeemzQL._SY695_.jpg",
-    link:"https://www.amazon.in/STANPHORD-Dynamic-Shoes_11-TPAJ-5040/dp/B0D7M7PPJV?dib=eyJ2IjoiMSJ9.VUtzpoc9n8VOkmUULhTZOvnS39Eg_REyBhW2mQaPppgvV7mOlgjv8rKO8_CY-XRX6GxtuieFXXCoC6oXkIjHqcq7j5sXMJ8lo4c7_r-2x-2sVXZSKV1d0-Edsh-UmCED2_y_zxcBVlucL35ndp7HGBQLriFLHlHq0NyPvj5rVT6YbV4hmUk94Gsl8s0r47Hek2ig9WT1uANeXo6WQQTL9gorGUWbnnM5nCtF0xwhkbHD0YGJvthL2ub4ff2GkeJ3ayc5gNTLS1LaULBX6OTx70kqvgk8twremrcO6qsUhc8.c2ozbxYM44dg0iR6X350F4ISOxHiUckskIAz9cNAIqw&dib_tag=se&qid=1784183207&refinements=p_n_g-1003446729111%3A30318714031&rnid=30318709031&s=shoes&sr=1-57-spons&aref=pzE1X8WfnZ&sp_csd=d2lkZ2V0TmFtZT1zcF9idGZfYnJvd3Nl&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=3ef427d06f56a1ab2b1f08823ec54af7&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/STANPHORD-Dynamic-Shoes_11-TPAJ-5040/dp/B0D7M7PPJV?tag=vijaytechst01-21",
     shortDesc:"Elegant glossy formal slip-on with soft cushioned insole for all-day comfort.",
     fullDesc:"STANPHORD glossy formal shoes offer an elegant design suitable for office and business wear. Soft cushioned insole provides enhanced all-day comfort, while the durable lace-up construction with premium finishing ensures long-lasting wear. Lightweight sole offers comfortable walking and movement - perfect footwear for office meetings, weddings and party occasions.",
     features:["Elegant glossy formal design","Soft cushioned insole","Durable premium finishing","Lightweight comfortable sole"],
     rating:3.9, ratingCount:"Amazon verified" },
   { id:45, name:"Stylelure Men's Synthetic Leather Black Formal Shoes", brand:"Stylelure", category:"Formal", badge:"Budget Pick", price:485, orig:2499,
     img:"https://m.media-amazon.com/images/I/71lOlUFCRWL._SY675_.jpg",
-    link:"https://www.amazon.in/Stylelure-Leather-Black-Formal-Shoes/dp/B07P9JCZJF?dib=eyJ2IjoiMSJ9.jAMs7BMe5E3fVMAkkaVxqY_b6T0vsFUbuLXfs5Cp2_nhffVQtwmdTz1FRFhS-mZanTfXHewaJFr050gBU0nWVD15eJSTWDa3br-pWpCgSWtdMhsH68yzvzdM8Ab9fPYg0KmDgCM0ZSkakXtRY01HVXdYPx52arXjOIBp81RyLwmltANjkyi_RZ3_bu7Ww3eLgZ0MO533DooD-KOi6kmdiZ-5H3YSdB8ciBI9Lo7wACaYf6TfdihwBc9RUN9gChcz7srr3uTTjLR0RmZtDysNfp9uDTvq4iR-bZxxz1gu1n0.upQ_Z8MmUxAWip-y3Pyh8smMY6ckRA6ghAD9ypDiKJo&dib_tag=se&qid=1784186436&refinements=p_n_g-1003446729111%3A30318714031&rnid=30318709031&s=shoes&sr=1-111&xpid=Kv2IWaIh24c3t&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=c3a1472946e80359cca2aed468ab0424&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Stylelure-Leather-Black-Formal-Shoes/dp/B07P9JCZJF?tag=vijaytechst01-21",
     shortDesc:"Stylish synthetic leather formal shoe with an extra cushioned footbed.",
     fullDesc:"Stylelure formal shoes are made from high-quality synthetic leather material, crafted to be stylish, comfortable and highly fashionable. Soft with an extra cushioned footbed, they provide day-long comfort while ensuring a real cozy fit that enhances the overall look.",
     features:["Synthetic leather construction","Extra cushioned footbed","Day-long comfort","Cozy, secure fit"],
     rating:3.7, ratingCount:"Amazon verified" },
   { id:46, name:"Bata Men's Lace-up Formal Shoes (Derby)", brand:"Bata", category:"Formal", badge:"Office Pick", price:761, orig:1099,
     img:"https://m.media-amazon.com/images/I/61EKb5AzkrL._SY695_.jpg",
-    link:"https://www.amazon.in/Bata-Mens-Lace-up-Formal-Shoes/dp/B0CF8SDXYZ?content-id=amzn1.sym.3ad88b5a-5f9e-4f20-adc4-f37f3f50cbec%3Aamzn1.sym.3ad88b5a-5f9e-4f20-adc4-f37f3f50cbec&cv_ct_cx=formal%2Bshoes%2Bfor%2Bman&keywords=formal%2Bshoes%2Bfor%2Bman&pd_rd_i=B0CF8SDXYZ&pd_rd_r=be7ee8f4-0f1c-48f9-9643-1b53fc1dadad&pd_rd_w=Xw14W&pd_rd_wg=TGafS&pf_rd_p=3ad88b5a-5f9e-4f20-adc4-f37f3f50cbec&pf_rd_r=K2X5E7S75N3DE3MYGASQ&qid=1784213411&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sr=1-53-2ec22325-1003-449d-8aaf-c0bcc24717ae-spons&xpid=D4KLte2dl_9cg&aref=mE8Pa3tdlV&sp_csd=d2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=b0b2336b8ca739b52eee2bb402d672df&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Bata-Mens-Lace-up-Formal-Shoes/dp/B0CF8SDXYZ?tag=vijaytechst01-21",
     shortDesc:"Classic derby shoe with durable leather build and cushioned all-day comfort.",
     fullDesc:"This timeless derby shoe style is perfect for both formal and casual occasions. Crafted with high-quality leather for long-lasting durability, it features a cushioned insole for a comfortable fit during extended wear - versatile enough for work, events, or casual outings with a polished look.",
     features:["Timeless derby design","Durable leather construction","Cushioned insole for all-day comfort","Versatile for work and events"],
     rating:4.0, ratingCount:"Amazon verified" },
   { id:47, name:"Louis Philippe Men Premium Leather Breathable Slip-Ons", brand:"Louis Philippe", category:"Formal", badge:"Premium", price:2139, orig:4999,
     img:"https://m.media-amazon.com/images/I/51tpk1QywpL._SY675_.jpg",
-    link:"https://www.amazon.in/Louis-Philippe-Formal-Leather-Slip-ons/dp/B0D5H3X317?dib=eyJ2IjoiMSJ9.f7VtmRy9_d_64QijERgf1UguW8_Y-P9GeIqZEB55IIRVUkd3HHwr3MG6AmYttvARxpdG-fbP3KoHgUa1iek_Kdku5UDKbJUTpZ1sZFsC3PE.1h_Y_CC1n1udABgCVu_gBxQirvz5rf2XNvKv5ssKbZc&dib_tag=se&keywords=formal%2Bshoes%2Bfor%2Bman&qid=1784214047&sr=8-104&xpid=D4KLte2dl_9cg&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=145f7960fa81910e8d2b518c7b22881d&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Louis-Philippe-Formal-Leather-Slip-ons/dp/B0D5H3X317?tag=vijaytechst01-21",
     shortDesc:"Premium leather slip-on with breathable inner lining for a polished look.",
     fullDesc:"Louis Philippe premium slip-on shoes are crafted from high-quality leather for a sophisticated finish, durability, and a polished formal appearance. Soft and breathable inner lining ensures enhanced airflow, keeping feet fresh and comfortable throughout the day.",
     features:["Premium leather upper","Breathable inner lining","Sophisticated polished finish","All-day fresh comfort"],
     rating:3.6, ratingCount:"Amazon verified" },
   { id:48, name:"Bata Men's Lace-up Formal Shoes (Classic)", brand:"Bata", category:"Formal", badge:"Office Pick", price:850, orig:1799,
     img:"https://m.media-amazon.com/images/I/61j4nsZq8ZL._SY695_.jpg",
-    link:"https://www.amazon.in/BATA-Derby-Formal-Shoes-10-8213273/dp/B07BVVZRL8?dib=eyJ2IjoiMSJ9.FHQ5FBc7o45s6lLQRn7iSu7TmA5I8LBlO6NdzWBZl8EnImeg5WzuX_uLwkImF5Hwy5uubCIk2WCzz4GfpH4524T7isMy4hIR26JO6bw7J3mSm-11AJZb5AvkwYP2HFEmT7cF3n39DkWfvqARavvrnI0vyRvtJDj1F0kYZ0fpa5-2DADnJ9Dd3OMKP3UOCnO1OqCzhZbKJGMizmNKAs1a4yUZHpXYoPKy5v1jVnZ1bruVdXsJWemrigM7VfyMK94xBz82di8rp2MFM-01ME6bmtKyZUIOcXMxVENOSuEpRHE.tu6n-4NQC3L3B1BP_r_QnaDAF16arPzksFdtYDKh3sQ&dib_tag=se&keywords=formal%2Bshoes%2Bfor%2Bman&qid=1784214047&sr=8-127&xpid=D4KLte2dl_9cg&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=0ed642c63b6f62ab236e86f23b942f66&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/BATA-Derby-Formal-Shoes-10-8213273/dp/B07BVVZRL8?tag=vijaytechst01-21",
     shortDesc:"Comfortable, flexible formal shoe backed by manufacturer warranty.",
     fullDesc:"This Bata formal shoe is comfortable and flexible, ideal for daily office wear, and comes with manufacturer warranty coverage. Care instructions: wipe with a clean and dry cloth to remove dust and keep the shoe looking sharp.",
     features:["Comfortable and flexible fit","Manufacturer warranty","Easy dry-cloth care","Everyday office use"],
     rating:4.0, ratingCount:"Amazon verified" },
   { id:49, name:"Averatto Men's Formal Dual-Texture Loafer Slip-On", brand:"Averatto", category:"Formal", badge:"Budget Pick", price:366, orig:999,
     img:"https://m.media-amazon.com/images/I/61J3x+VKN3L._SX675_.jpg",
-    link:"https://www.amazon.in/Dual-Texture-Metallic-Black-Tie-Occasions-Footwear/dp/B0H66D8CT3?dib=eyJ2IjoiMSJ9.AlEJvJvFLJf1jpoX5SgLM2TVUjxkffCGgFk3s4vjAVv344vpyZHzLcPXhaTYulYNspfAIUmnFIB0FMD1bVAUDcW-kwKn07K3faIhghijcmUmQ_HKlgpV-_HGpyMTSHtMpiVAg2c6ng-M8EGgOxuPLehheiQ7EJ9l5P44U-e-G1V1P-wOoFa73Zx729oyysSgVJ0-q6Kdf5ZDjJbRUmjdZMI-vIMB0oFmMrO9p64R4Ui4WJA0UTyfrWxKZh-MqGbTWj46jVc-SgFx4TIr3LGhlb2NP66NnlmYpp8YB7O3j2Y.O1SP9Tce6bVUUIsgv_OIhqPWCF-J3wbGvXzgoZOfl4Y&dib_tag=se&keywords=formal%2Bshoes%2Bfor%2Bman&qid=1784214601&sr=8-155&xpid=D4KLte2dl_9cg&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=16a9b2cf4fcca1ed6e02dcf075827e79&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Dual-Texture-Metallic-Black-Tie-Occasions-Footwear/dp/B0H66D8CT3?tag=vijaytechst01-21",
     shortDesc:"Dual-texture loafer with metallic bit detail for a refined dress-up look.",
     fullDesc:"This dual-texture slip-on loafer features a striking combination of high-gloss patent trim and a subtle textured matte apron panel for a sophisticated, modern look. A refined horseshoe-style metallic bit accent adds a bold yet classic finishing touch to elevate any formal ensemble.",
     features:["Dual-texture patent and matte finish","Metallic horseshoe bit detail","Modern, sophisticated look","Easy slip-on design"],
     rating:4.0, ratingCount:"Amazon verified" },
   { id:50, name:"ALBERTO TORRESI Lace-up Formal Leather Shoes", brand:"ALBERTO TORRESI", category:"Formal", badge:"Premium", price:1999, orig:4999,
     img:"https://m.media-amazon.com/images/I/51AR3BG5XOL._SY695_.jpg",
-    link:"https://www.amazon.in/ALBERTO-TORRESI-Formal-Leather-Shoes/dp/B0BQMDXGB7?dib=eyJ2IjoiMSJ9.AYCTEU5usYtmT_uer07iM7NHdY95MqbSmqnZ5B_lnvj_GVF1zmRlcZRDoL6-WqIpX2Iblq5aXXIRRBECn4YiT7H9yLYAhnufaA0Erxvygx5CKTv1COOIbFTDaO0X7LPt5GKJvVHIbaxobIort1T61E1PMN7f6X8v3_Qw8-n7Mu4txy-7VLcvYxQ6oE-ghX79nw-g97s0edaY1HvHXOeFBYVPfTEG3ZvsytMcxRutjAsM5ANfCeYijqLUQ4Fflmw60p7ni2l6QmUD6XdHyAZINMvJggkfc6pvpZ7HNR8lW98.eSZOx9LLXupCNlROox6bWe3Na1HqVbs_jBX_SaqkHs0&dib_tag=se&keywords=formal%2Bshoes%2Bfor%2Bman&qid=1784214982&refinements=p_n_g-1003446729111%3A30318714031&rnid=30318709031&sr=8-60-spons&aref=SyoXbWUIPF&sp_csd=d2lkZ2V0TmFtZT1zcF9idGY&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=3af66c728a21ebaabb6a639193a0ca62&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/ALBERTO-TORRESI-Formal-Leather-Shoes/dp/B0BQMDXGB7?tag=vijaytechst01-21",
     shortDesc:"Durable leather lace-up formal shoe with secure fit and cushioned footbed.",
     fullDesc:"ALBERTO TORRESI lace-up formal shoes are made with high-quality leather, built to last and enhance your formal look. The lace-up closure ensures a secure and adjustable fit, while the cushioned footbed provides all-day comfort.",
     features:["High-quality leather build","Secure adjustable lace-up fit","Cushioned footbed comfort","Durable, long-lasting finish"],
     rating:3.5, ratingCount:"Amazon verified" },
   { id:51, name:"Centrino Formal Shoes for Men (Derby)", brand:"Centrino", category:"Formal", badge:"Budget Pick", price:549, orig:999,
     img:"https://m.media-amazon.com/images/I/71LiJzdGyKL._SY675_.jpg",
-    link:"https://www.amazon.in/Centrino-Black-Mens-Formal-8604-1/dp/B09C8NCWGZ?dib=eyJ2IjoiMSJ9.xgtHoAi-zrwyvmLPkYiIDq0Y0XAtAcmn2-teWWfRKKwMHpws2O_CX3NEMefxpflPp6vdQI8ifFDxkHbRhxgClEVdhyD1GjtfMf91reYWfqc92K23KhegIR5S0VuWQ-iOCUUlahLcO0JL9W5ZY124CSnSh8Pq23GgjTyPmtwDT1WYv6rqGQY90PRgBnuLk8vKEyj5zdSwNGb1RFAz_NuH7eNFK9CczFF1cSbCeKLE_kmusLhZ2lU86UovKdNKFfXm73zvU6fBnd0xFK7YPIbGUj68dVPPDJqCYGQsw5RKNAs.1URUlEimSKx6HK3GIh9qaHmZU-E2ZsVJ2kMDQiS7Bzo&dib_tag=se&keywords=formal%2Bshoes%2Bfor%2Bman&qid=1784215454&refinements=p_n_g-1003446729111%3A30318714031&rnid=30318709031&sr=8-259&xpid=HXgkrrFfmGWLx&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=b37823e625bca38c07db5953e21a7ac8&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Centrino-Black-Mens-Formal-8604-1/dp/B09C8NCWGZ?tag=vijaytechst01-21",
     shortDesc:"Flexible derby shoe with cushioned foam insole and a trendy formal look.",
     fullDesc:"This Centrino derby shoe offers flexible construction that gives you the freedom to move comfortably, with a lightly cushioned foam insole for comfort and shock absorption. Its trendy design and formal look make a great impression - perfect for formal and party wear.",
     features:["Flexible derby construction","Lightly cushioned foam insole","Trendy formal design","Great for formal and party wear"],
     rating:3.5, ratingCount:"Amazon verified" },
   { id:52, name:"Restroad Men's Formal Shoes", brand:"Restroad", category:"Formal", badge:"Top Rated", price:579, orig:1999,
     img:"https://m.media-amazon.com/images/I/61c2ZT4mJ8L._SX675_.jpg",
-    link:"https://www.amazon.in/Restroad-Formal-Synthetic-Leather-Lace-Up/dp/B0GGBS9LWV?dib=eyJ2IjoiMSJ9.Rv-QLaMwWg4oVpDRatdBJoyyDbBc5GQ5cN2wys1MakHh3GfiWmNVyngxG63jVP8C7OeIa6AfdYGQqDV-aJEyT1gaoIpZHBLPqVwnJzIGWP8.Y_3EJRcVAK2rkhSMOZvc4pMc1JVAzoSMdVaDKHlEuSY&dib_tag=se&keywords=formal%2Bshoes%2Bfor%2Bman&qid=1784215613&refinements=p_n_g-1003446729111%3A30318714031&rnid=30318709031&sr=8-296&xpid=HXgkrrFfmGWLx&th=1&psc=1&linkCode=ll2&tag=vijaytechst01-21&linkId=c26b88a7fb8d12e9f713373118efbf23&ref_=as_li_ss_tl",
+    link:"https://www.amazon.in/Restroad-Formal-Synthetic-Leather-Lace-Up/dp/B0GGBS9LWV?tag=vijaytechst01-21",
     shortDesc:"Synthetic leather lace-up formal shoe with durable sole for regular use.",
     fullDesc:"Restroad formal shoes are made with synthetic leather for a structured, polished appearance - designed for office, meetings, and formal occasions. Lace-up style provides a secure and adjustable fit, with an inner lining that supports comfort during extended wear and a durable sole for stability and regular use.",
     features:["Structured synthetic leather build","Secure adjustable lace-up fit","Comfortable inner lining","Durable, stable sole"],
@@ -647,20 +562,13 @@ saveProducts();
 
 function saveProducts() { localStorage.setItem('soleelite_products_52items', JSON.stringify(products)); }
 
-function resetToDefaults() {
-  if (!confirm('Sab products reset honge default pe. Sure?')) return;
-  products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
-  saveProducts(); renderGrid(currentCat); renderAdminList();
-  showToast('Default products restore ho gaye!');
-}
-
 var currentCat = 'All';
 
 function renderGrid(cat) {
   var grid = document.getElementById('productGrid');
   var filtered = cat === 'All' ? products : products.filter(function(p){return p.category===cat;});
   if (!filtered.length) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 24px;color:var(--muted)"><h3 style="font-family:Playfair Display,serif;font-size:24px;color:var(--white);margin-bottom:8px">No shoes here</h3><p>Admin panel se add karo!</p></div>';
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 24px;color:var(--muted)"><h3 style="font-family:Playfair Display,serif;font-size:24px;color:var(--white);margin-bottom:8px">No shoes here</h3><p>Check back soon!</p></div>';
     return;
   }
   grid.innerHTML = filtered.map(function(p) {
@@ -705,74 +613,6 @@ function openProduct(id) {
   document.getElementById('mFeatures').innerHTML = (p.features||[]).map(function(f){return '<li>' + f + '</li>';}).join('');
   document.getElementById('mLink').href = affLink(p.link);
   openModal('productModal');
-}
-
-var adminLoggedIn = false;
-
-function openAdmin() {
-  openModal('adminModal');
-  document.getElementById('adminLoginBox').style.display = adminLoggedIn ? 'none' : 'block';
-  document.getElementById('adminPanel').style.display = adminLoggedIn ? 'block' : 'none';
-  if (adminLoggedIn) renderAdminList();
-}
-
-function adminLogin() {
-  if (document.getElementById('adminPass').value === ADMIN_PASS) {
-    adminLoggedIn = true;
-    document.getElementById('adminLoginBox').style.display = 'none';
-    document.getElementById('adminPanel').style.display = 'block';
-    renderAdminList(); showToast('Admin access granted');
-  } else { showToast('Wrong password'); }
-}
-
-function switchTab(tabId, btn) {
-  document.querySelectorAll('.tab-pane').forEach(function(t){t.classList.remove('active');});
-  document.querySelectorAll('.admin-tab').forEach(function(b){b.classList.remove('active');});
-  document.getElementById(tabId).classList.add('active'); btn.classList.add('active');
-  if (tabId === 'manageTab') renderAdminList();
-}
-
-function addProduct() {
-  var name=document.getElementById('aName').value.trim();
-  var brand=document.getElementById('aBrand').value.trim();
-  var link=document.getElementById('aLink').value.trim();
-  var img=document.getElementById('aImg').value.trim();
-  var price=document.getElementById('aPrice').value;
-  if (!name||!brand||!link||!img||!price) { showToast('Required fields bharo pehle'); return; }
-  var featuresRaw=document.getElementById('aFeatures').value.trim();
-  products.unshift({
-    id:Date.now(), name:name, brand:brand,
-    category:document.getElementById('aCat').value,
-    badge:document.getElementById('aBadge').value.trim(),
-    price:Number(price), orig:Number(document.getElementById('aOrig').value)||0,
-    link:link, img:img,
-    shortDesc:document.getElementById('aShortDesc').value.trim(),
-    fullDesc:document.getElementById('aFullDesc').value.trim(),
-    features:featuresRaw?featuresRaw.split('\n').filter(Boolean):[],
-    rating:Number(document.getElementById('aRating').value)||4.0,
-    ratingCount:document.getElementById('aRatingCount').value.trim()||'Amazon verified'
-  });
-  saveProducts(); renderGrid(currentCat); showToast('Product add ho gaya!');
-  ['aName','aBrand','aBadge','aPrice','aOrig','aLink','aImg','aShortDesc','aFullDesc','aFeatures','aRating','aRatingCount'].forEach(function(id){document.getElementById(id).value='';});
-}
-
-function deleteProduct(id) {
-  if (!confirm('Is product ko remove karo?')) return;
-  products = products.filter(function(p){return p.id!=id;});
-  saveProducts(); renderGrid(currentCat); renderAdminList(); showToast('Product remove ho gaya');
-}
-
-function renderAdminList() {
-  var list=document.getElementById('adminList');
-  if (!products.length) { list.innerHTML='<p style="color:var(--muted);text-align:center;padding:24px">Koi product nahi hai.</p>'; return; }
-  list.innerHTML=products.map(function(p){
-    return '<div class="admin-product-item">'
-      + '<img class="admin-product-img" src="' + p.img + '" alt="" onerror="this.src=\'https://placehold.co/56x56/333/555?text=?\'">'
-      + '<div class="admin-product-info"><div class="admin-product-name">' + p.name + '</div>'
-      + '<div class="admin-product-meta">' + p.brand + ' - ' + p.category + ' - Rs.' + Number(p.price).toLocaleString('en-IN') + '</div></div>'
-      + '<button class="delete-btn" onclick="deleteProduct(' + p.id + ')">Remove</button>'
-      + '</div>';
-  }).join('');
 }
 
 function openModal(id) { document.getElementById(id).classList.add('open'); }
