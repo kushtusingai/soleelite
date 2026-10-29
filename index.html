@@ -74,6 +74,48 @@
   .toast { position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;border:1px solid var(--gold);color:var(--white);padding:12px 24px;border-radius:8px;font-size:13px;z-index:9999;transition:transform 0.3s;white-space:nowrap; }
   .toast.show { transform:translateX(-50%) translateY(0); }
   @media(max-width:600px) { nav{display:none} .hero-title{font-size:36px} }
+
+  /* Search, budget and sorting controls */
+  .shop-controls { max-width:1200px;margin:24px auto 8px;padding:0 24px;display:grid;grid-template-columns:minmax(220px,2fr) repeat(2,minmax(90px,.7fr)) minmax(170px,1fr) auto;gap:12px; }
+  .shop-controls input,.shop-controls select,.shop-controls button { width:100%;min-width:0;padding:12px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--white);font:inherit; }
+  .shop-controls input:focus,.shop-controls select:focus { outline:2px solid var(--gold);outline-offset:2px; }
+  .shop-controls input::placeholder { color:var(--muted); }
+  .shop-controls button { background:var(--gold);color:#111;border-color:var(--gold);font-weight:600;cursor:pointer; }
+  .results-count { max-width:1200px;margin:12px auto;padding:0 24px;color:var(--muted);font-size:13px; }
+  @media(max-width:760px) { .shop-controls { grid-template-columns:repeat(2,minmax(0,1fr));padding:0 16px;gap:10px; } #productSearch { grid-column:1 / -1; } .results-count { padding:0 16px; } }
+  @media(max-width:380px) { .shop-controls { grid-template-columns:1fr; } #productSearch { grid-column:auto; } }
+
+  /* Shopping cart */
+  .header-actions { justify-self:end;display:flex;align-items:center;gap:10px; }
+  .cart-open-btn { background:var(--gold);color:#111;border:0;border-radius:8px;padding:10px 14px;font:600 13px 'Inter',sans-serif;cursor:pointer;white-space:nowrap; }
+  .cart-count { display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 5px;border-radius:50px;background:#111;color:var(--gold);font-size:11px;margin-left:5px; }
+  .add-cart-btn { width:100%;margin-top:12px;padding:10px 12px;border:1px solid var(--gold);border-radius:7px;background:transparent;color:var(--gold);font:600 12px 'Inter',sans-serif;cursor:pointer;transition:background .2s,color .2s; }
+  .add-cart-btn:hover { background:var(--gold);color:#111; }
+  .modal-cart-btn { width:100%;padding:13px;border:1px solid var(--gold);border-radius:8px;background:var(--gold);color:#111;font:700 14px 'Inter',sans-serif;cursor:pointer;margin:0 0 12px; }
+  .cart-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:1200;justify-content:flex-end; }
+  .cart-overlay.open { display:flex; }
+  .cart-panel { width:min(520px,100%);height:100%;overflow-y:auto;background:var(--bg2);border-left:1px solid var(--border);padding:24px;box-shadow:-12px 0 40px rgba(0,0,0,.35); }
+  .cart-heading { display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:18px; }
+  .cart-heading h2 { font:700 26px 'Playfair Display',serif; }
+  .cart-close { background:none;border:0;color:var(--white);font-size:28px;cursor:pointer; }
+  .cart-item { display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px;padding:16px 0;border-bottom:1px solid var(--border); }
+  .cart-item img { width:76px;height:76px;object-fit:cover;border-radius:8px;background:#292929; }
+  .cart-item-name { font-size:14px;font-weight:600;line-height:1.4;margin-bottom:5px; }
+  .cart-item-meta { color:var(--gold);font-size:13px;margin-bottom:10px; }
+  .cart-item-actions { display:flex;align-items:center;flex-wrap:wrap;gap:7px; }
+  .qty-btn { width:28px;height:28px;border:1px solid var(--border);border-radius:5px;background:var(--card);color:var(--white);cursor:pointer;font-size:16px; }
+  .qty-value { min-width:22px;text-align:center;font-size:13px; }
+  .remove-cart-btn { border:0;background:none;color:#e88b8b;text-decoration:underline;cursor:pointer;font-size:12px;margin-left:6px; }
+  .cart-buy-link { color:#111;background:linear-gradient(135deg,#ff9900,#e47911);border-radius:5px;padding:7px 9px;text-decoration:none;font-size:11px;font-weight:700;margin-left:auto; }
+  .cart-empty { padding:40px 8px;text-align:center;color:var(--muted);line-height:1.7; }
+  .cart-summary { margin-top:22px;padding-top:18px;border-top:1px solid var(--border); }
+  .cart-total-row { display:flex;justify-content:space-between;gap:16px;font-size:18px;font-weight:700;margin-bottom:12px; }
+  .cart-total-row strong { color:var(--gold); }
+  .cart-disclaimer { color:var(--muted);font-size:11px;line-height:1.6;margin:12px 0 16px; }
+  .cart-clear-btn { width:100%;padding:11px;border:1px solid var(--border);border-radius:7px;background:transparent;color:var(--muted);cursor:pointer; }
+  .cart-checkout-btn { display:block;text-align:center;width:100%;padding:13px;border-radius:8px;background:var(--gold);color:#111;text-decoration:none;font-weight:700;font-size:14px;border:0;cursor:pointer; }
+  @media(max-width:600px) { header { grid-template-columns:1fr auto;height:60px;padding:0 14px; } header nav { display:none; } .header-actions { grid-column:2; } .logo { font-size:19px; } .cart-panel { padding:18px; } }
+
 </style>
 </head>
 <body>
@@ -87,6 +129,9 @@
     <a onclick="filterCat('Formal',this)">Formal</a>
     <a onclick="filterCat('Sports',this)">Sports</a>
   </nav>
+  <div class="header-actions">
+    <button class="cart-open-btn" type="button" onclick="openCart()">🛒 Cart <span id="cartCount" class="cart-count">0</span></button>
+  </div>
 </header>
 
 <section class="hero">
@@ -110,6 +155,20 @@
   <button class="filter-btn" onclick="filterCat('Formal',this)">Formal</button>
   <button class="filter-btn" onclick="filterCat('Sports',this)">Sports</button>
 </div>
+
+<!-- Search, price range and sorting -->
+<div class="shop-controls">
+  <input type="search" id="productSearch" placeholder="Search shoes by name or brand..." aria-label="Search shoes by name or brand" oninput="renderGrid()">
+  <input type="number" id="minPrice" placeholder="Min ₹" min="0" aria-label="Minimum price" oninput="renderGrid()">
+  <input type="number" id="maxPrice" placeholder="Max ₹" min="0" aria-label="Maximum price" oninput="renderGrid()">
+  <select id="sortPrice" aria-label="Sort by price" onchange="renderGrid()">
+    <option value="default">Sort: Featured</option>
+    <option value="low-high">Price: Low to High</option>
+    <option value="high-low">Price: High to Low</option>
+  </select>
+  <button type="button" onclick="resetShopFilters()">Reset</button>
+</div>
+<p id="resultsCount" class="results-count" aria-live="polite"></p>
 
 <section class="grid-section">
   <div class="section-label">Our Collection</div>
@@ -135,12 +194,25 @@
     <div id="mOrig" class="modal-price-orig"></div>
     <p id="mDesc" class="modal-desc"></p>
     <ul id="mFeatures" class="modal-features"></ul>
+    <button type="button" class="modal-cart-btn" id="mAddCart" onclick="addCurrentProductToCart()">Add to Cart</button>
     <a id="mLink" class="modal-amazon-btn" href="#" target="_blank" rel="noopener">Buy on Amazon</a>
     <p class="modal-disclaimer">You will be redirected to Amazon.in. We may earn an affiliate commission.</p>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- SHOPPING CART -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCartIfOutside(event)">
+  <aside class="cart-panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="cart-heading">
+      <h2 id="cartTitle">Your Cart</h2>
+      <button class="cart-close" type="button" aria-label="Close cart" onclick="closeCart()">×</button>
+    </div>
+    <div id="cartItems"></div>
+    <div id="cartSummary" class="cart-summary"></div>
+  </aside>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 const API_BASE_URL = "https://soleelite-backend.onrender.com";
@@ -564,13 +636,40 @@ function saveProducts() { localStorage.setItem('soleelite_products_52items', JSO
 
 var currentCat = 'All';
 
-function renderGrid(cat) {
+function renderGrid() {
   var grid = document.getElementById('productGrid');
-  var filtered = cat === 'All' ? products : products.filter(function(p){return p.category===cat;});
+  var search = document.getElementById('productSearch').value.trim().toLowerCase();
+  var minValue = document.getElementById('minPrice').value.trim();
+  var maxValue = document.getElementById('maxPrice').value.trim();
+  var minPrice = minValue === '' ? null : Number(minValue);
+  var maxPrice = maxValue === '' ? null : Number(maxValue);
+  var sortOrder = document.getElementById('sortPrice').value;
+
+  var filtered = products.filter(function(p) {
+    var name = String(p.name || '').toLowerCase();
+    var brand = String(p.brand || '').toLowerCase();
+    var price = Number(p.price);
+    var matchesSearch = name.includes(search) || brand.includes(search);
+    var matchesCategory = currentCat === 'All' || p.category === currentCat;
+    var matchesMin = minPrice === null || price >= minPrice;
+    var matchesMax = maxPrice === null || price <= maxPrice;
+    return matchesSearch && matchesCategory && matchesMin && matchesMax;
+  });
+
+  if (sortOrder === 'low-high') {
+    filtered.sort(function(a,b) { return Number(a.price) - Number(b.price); });
+  } else if (sortOrder === 'high-low') {
+    filtered.sort(function(a,b) { return Number(b.price) - Number(a.price); });
+  }
+
+  document.getElementById('resultsCount').textContent =
+    'Showing ' + filtered.length + ' of ' + products.length + ' shoes';
+
   if (!filtered.length) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 24px;color:var(--muted)"><h3 style="font-family:Playfair Display,serif;font-size:24px;color:var(--white);margin-bottom:8px">No shoes here</h3><p>Check back soon!</p></div>';
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 24px;color:var(--muted)"><h3 style="font-family:Playfair Display,serif;font-size:24px;color:var(--white);margin-bottom:8px">No matching shoes found</h3><p>Try another search or change your price range.</p></div>';
     return;
   }
+
   grid.innerHTML = filtered.map(function(p) {
     return '<div class="product-card" onclick="openProduct(' + p.id + ')">'
       + '<div class="card-img-wrap">'
@@ -580,25 +679,166 @@ function renderGrid(cat) {
       + '<div class="card-body">'
       + '<div class="card-brand">' + p.brand + '</div>'
       + '<div class="card-name">' + p.name + '</div>'
-      + '<div class="card-desc">' + (p.shortDesc||'') + '</div>'
+      + '<div class="card-desc">' + (p.shortDesc || '') + '</div>'
       + '<div class="card-footer">'
       + '<div><span class="card-price">Rs.' + Number(p.price).toLocaleString('en-IN') + '</span>'
       + (p.orig ? '<span class="card-price-orig">Rs.' + Number(p.orig).toLocaleString('en-IN') + '</span>' : '')
       + '</div>'
       + ' <a class="amazon-btn" href="' + affLink(p.link) + '" target="_blank" rel="noopener" onclick="handleBuyClick(\'' + p.id + '\'); event.stopPropagation()">Buy on Amazon</a>'
-      + '</div></div></div>';
+      + '</div>'
+      + '<button type="button" class="add-cart-btn" onclick="event.stopPropagation(); addToCart(' + p.id + ')">+ Add to Cart</button>'
+      + '</div></div>';
   }).join('');
 }
 
 function filterCat(cat, btn) {
   currentCat = cat;
-  renderGrid(cat);
+  renderGrid();
   document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
   document.querySelectorAll('nav a').forEach(function(b){b.classList.remove('active');});
   if (btn) btn.classList.add('active');
 }
 
+function resetShopFilters() {
+  document.getElementById('productSearch').value = '';
+  document.getElementById('minPrice').value = '';
+  document.getElementById('maxPrice').value = '';
+  document.getElementById('sortPrice').value = 'default';
+  currentCat = 'All';
+
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.classList.remove('active');
+    if (btn.textContent.trim() === 'All Shoes') btn.classList.add('active');
+  });
+  document.querySelectorAll('nav a').forEach(function(link) {
+    link.classList.remove('active');
+    if (link.textContent.trim() === 'All') link.classList.add('active');
+  });
+  renderGrid();
+}
+
+var cart = [];
+try {
+  var savedCart = JSON.parse(localStorage.getItem('soleelite_cart'));
+  if (Array.isArray(savedCart)) cart = savedCart;
+} catch (e) { cart = []; }
+var currentModalProductId = null;
+
+function saveCart() {
+  try { localStorage.setItem('soleelite_cart', JSON.stringify(cart)); } catch (e) {}
+}
+
+function getCartQuantity() {
+  return cart.reduce(function(total, item) { return total + Number(item.qty || 0); }, 0);
+}
+
+function updateCartCount() {
+  var count = document.getElementById('cartCount');
+  if (count) count.textContent = getCartQuantity();
+}
+
+function addToCart(id) {
+  var product = products.find(function(p) { return String(p.id) === String(id); });
+  if (!product) return;
+  var item = cart.find(function(entry) { return String(entry.id) === String(id); });
+  if (item) item.qty = Math.min(99, Number(item.qty || 1) + 1);
+  else cart.push({ id: product.id, qty: 1 });
+  saveCart();
+  renderCart();
+  updateCartCount();
+  showToast(product.name + ' added to cart');
+}
+
+function addCurrentProductToCart() {
+  if (currentModalProductId !== null) {
+    addToCart(currentModalProductId);
+    closeModal('productModal');
+  }
+}
+
+function changeCartQuantity(id, delta) {
+  var item = cart.find(function(entry) { return String(entry.id) === String(id); });
+  if (!item) return;
+  item.qty = Number(item.qty || 1) + delta;
+  if (item.qty <= 0) cart = cart.filter(function(entry) { return String(entry.id) !== String(id); });
+  else item.qty = Math.min(99, item.qty);
+  saveCart();
+  renderCart();
+  updateCartCount();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(function(item) { return String(item.id) !== String(id); });
+  saveCart();
+  renderCart();
+  updateCartCount();
+}
+
+function clearCart() {
+  if (!cart.length) return;
+  cart = [];
+  saveCart();
+  renderCart();
+  updateCartCount();
+  showToast('Cart cleared');
+}
+
+function renderCart() {
+  var itemsEl = document.getElementById('cartItems');
+  var summaryEl = document.getElementById('cartSummary');
+  if (!itemsEl || !summaryEl) return;
+  var validItems = cart.map(function(item) {
+    var product = products.find(function(p) { return String(p.id) === String(item.id); });
+    return product ? { product: product, qty: Math.max(1, Number(item.qty) || 1) } : null;
+  }).filter(Boolean);
+  if (validItems.length !== cart.length) {
+    cart = validItems.map(function(item) { return { id: item.product.id, qty: item.qty }; });
+    saveCart();
+  }
+  if (!validItems.length) {
+    itemsEl.innerHTML = '<div class="cart-empty"><div style="font-size:42px;margin-bottom:12px">🛒</div><strong>Your cart is empty</strong><br>Browse the collection and add shoes you like.</div>';
+    summaryEl.innerHTML = '';
+    updateCartCount();
+    return;
+  }
+  var total = validItems.reduce(function(sum, item) { return sum + Number(item.product.price || 0) * item.qty; }, 0);
+  itemsEl.innerHTML = validItems.map(function(item) {
+    var p = item.product;
+    return '<div class="cart-item">'
+      + '<img src="' + p.img + '" alt="' + p.name.replace(/"/g, '&quot;') + '" onerror="this.src=\'https://placehold.co/100x100/222/555?text=No+Image\'">'
+      + '<div><div class="cart-item-name">' + p.name + '</div>'
+      + '<div class="cart-item-meta">₹' + Number(p.price).toLocaleString('en-IN') + ' each</div>'
+      + '<div class="cart-item-actions">'
+      + '<button class="qty-btn" type="button" aria-label="Decrease quantity" onclick="changeCartQuantity(' + p.id + ',-1)">−</button>'
+      + '<span class="qty-value">' + item.qty + '</span>'
+      + '<button class="qty-btn" type="button" aria-label="Increase quantity" onclick="changeCartQuantity(' + p.id + ',1)">+</button>'
+      + '<button class="remove-cart-btn" type="button" onclick="removeFromCart(' + p.id + ')">Remove</button>'
+      + '<a class="cart-buy-link" href="' + affLink(p.link) + '" target="_blank" rel="noopener" onclick="handleBuyClick(\'' + p.id + '\')">Buy on Amazon</a>'
+      + '</div></div></div>';
+  }).join('');
+  summaryEl.innerHTML = '<div class="cart-total-row"><span>Estimated total : </span><strong>₹' + total.toLocaleString('en-IN') + '</strong></div>'
+    + '<p class="cart-disclaimer">This is an Amazon affiliate storefront, not a direct seller. This total is an estimate based on the prices shown here; Amazon prices and availability may change. Checkout and payment happen on Amazon for each item, so this cart cannot submit one combined order.</p>'
+    + '<button class="cart-checkout-btn" type="button" onclick="showToast(\'Use each Buy on Amazon link above to purchase that item on Amazon.\')">Continue to Amazon links</button>'
+    + '<div style="height:10px"></div><button class="cart-clear-btn" type="button" onclick="clearCart()">Clear cart</button>';
+  updateCartCount();
+}
+
+function openCart() {
+  renderCart();
+  document.getElementById('cartOverlay').classList.add('open');
+}
+function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); }
+function closeCartIfOutside(event) { if (event.target.id === 'cartOverlay') closeCart(); }
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeCart();
+    closeModal('productModal');
+  }
+});
+
 function openProduct(id) {
+  currentModalProductId = id;
   var p = products.find(function(x){return x.id==id;});
   if (!p) return;
   document.getElementById('mImg').src = p.img;
@@ -612,6 +852,7 @@ function openProduct(id) {
   document.getElementById('mDesc').textContent = p.fullDesc || p.shortDesc || '';
   document.getElementById('mFeatures').innerHTML = (p.features||[]).map(function(f){return '<li>' + f + '</li>';}).join('');
   document.getElementById('mLink').href = affLink(p.link);
+  document.getElementById('mLink').onclick = function() { handleBuyClick(p.id); };
   openModal('productModal');
 }
 
@@ -625,7 +866,9 @@ function showToast(msg) {
   setTimeout(function(){t.classList.remove('show');},3000);
 }
 
-renderGrid('All');
+renderGrid();
+renderCart();
+updateCartCount();
 </script>
 </body>
 </html>
