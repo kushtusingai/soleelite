@@ -1033,8 +1033,9 @@ try { saved = JSON.parse(localStorage.getItem('soleelite_products_52items')); } 
 var products = (saved && Array.isArray(saved) && saved.length > 0) ? saved : JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
 saveProducts();
 
-// Structured data describes the site and catalogue without inventing live prices,
-// availability, review counts or individual product landing-page URLs.
+// Structured data describes the collection without marking catalogue cards
+// as individual Product rich-result entities. This avoids incomplete Product
+// snippet markup on a multi-product listing page.
 (function addSoleEliteStructuredData() {
   var baseUrl = "https://kushtusingai.github.io/soleelite/";
   var collection = {
@@ -1051,15 +1052,8 @@ saveProducts();
         var item = {
           "@type": "ListItem",
           "position": index + 1,
-          "item": {
-            "@type": "Product",
-            "name": String(p.name || ""),
-            "image": String(p.img || ""),
-            "category": String(p.category || "Footwear"),
-            "brand": { "@type": "Brand", "name": String(p.brand || "Unspecified") }
-          }
+          "name": String(p.name || "")
         };
-        if (p.shortDesc) item.item.description = String(p.shortDesc);
         return item;
       })
     }
