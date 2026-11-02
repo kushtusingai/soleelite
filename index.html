@@ -3,7 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SoleElite - Premium Footwear</title>
+<title>SoleElite | Premium Running, Casual &amp; Sports Shoes</title>
+<meta name="description" content="Discover curated running shoes, casual sneakers, formal shoes and sports footwear from leading brands. Compare styles and visit Amazon for current prices and availability.">
+<meta name="author" content="SoleElite">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#111111">
+<link rel="canonical" href="https://kushtusingai.github.io/soleelite/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SoleElite">
+<meta property="og:title" content="SoleElite | Premium Footwear Collection">
+<meta property="og:description" content="Discover curated running shoes, casual sneakers, formal shoes and sports footwear from leading brands. Compare styles and visit Amazon for current prices and availability.">
+<meta property="og:url" content="https://kushtusingai.github.io/soleelite/">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SoleElite | Premium Footwear Collection">
+<meta name="twitter:description" content="Discover curated running shoes, casual sneakers, formal shoes and sports footwear from leading brands. Compare styles and visit Amazon for current prices and availability.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *,* ::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -477,6 +491,7 @@ button, select { touch-action:manipulation; }
   <div class="trust-item"><span class="trust-icon">&#11088;</span> Verified Customer Reviews</div>
 </div>
 
+
 <div class="filter-bar">
   <button class="filter-btn active" onclick="filterCat('All',this)">All Shoes</button>
   <button class="filter-btn" onclick="filterCat('Running',this)">Running</button>
@@ -531,7 +546,7 @@ button, select { touch-action:manipulation; }
 <div class="modal-overlay" id="productModal" onclick="closeIfOutside(event,'productModal')">
   <div class="product-modal">
     <button class="modal-close" onclick="closeModal('productModal')">x</button>
-    <img id="mImg" class="modal-img" src="" alt="" onerror="this.src='https://placehold.co/700x400/222/555?text=No+Image'">
+    <img id="mImg" class="modal-img" src="" alt="Selected footwear product" onerror="this.src='https://placehold.co/700x400/222/555?text=No+Image'">
     <div id="mBrand" class="modal-brand"></div>
     <h2 id="mName" class="modal-name"></h2>
     <div class="modal-rating"><span id="mStars" class="stars"></span><span id="mRating"></span></div>
@@ -1018,6 +1033,43 @@ try { saved = JSON.parse(localStorage.getItem('soleelite_products_52items')); } 
 var products = (saved && Array.isArray(saved) && saved.length > 0) ? saved : JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
 saveProducts();
 
+// Structured data describes the site and catalogue without inventing live prices,
+// availability, review counts or individual product landing-page URLs.
+(function addSoleEliteStructuredData() {
+  var baseUrl = "https://kushtusingai.github.io/soleelite/";
+  var collection = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "SoleElite Premium Footwear Collection",
+    "description": "Browse running shoes, casual sneakers, formal shoes and sports footwear.",
+    "url": baseUrl,
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "SoleElite footwear catalogue",
+      "numberOfItems": products.length,
+      "itemListElement": products.map(function(p, index) {
+        var item = {
+          "@type": "ListItem",
+          "position": index + 1,
+          "item": {
+            "@type": "Product",
+            "name": String(p.name || ""),
+            "image": String(p.img || ""),
+            "category": String(p.category || "Footwear"),
+            "brand": { "@type": "Brand", "name": String(p.brand || "Unspecified") }
+          }
+        };
+        if (p.shortDesc) item.item.description = String(p.shortDesc);
+        return item;
+      })
+    }
+  };
+  var script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.textContent = JSON.stringify(collection);
+  document.head.appendChild(script);
+})();
+
 function saveProducts() { try { localStorage.setItem('soleelite_products_52items', JSON.stringify(products)); } catch(e) {} }
 
 var currentCat = 'All';
@@ -1057,7 +1109,7 @@ function renderRecentlyViewed() {
   section.style.display = items.length ? 'block' : 'none';
   grid.innerHTML = items.map(function(p) {
     return '<article class="recent-card" onclick="openProduct(' + Number(p.id) + ')">'
-      + '<img src="' + escapeHTML(p.img) + '" alt="' + escapeHTML(p.name) + '" loading="lazy" decoding="async" onerror="this.src=\'https://placehold.co/300x200/222/555?text=No+Image\'">'
+      + '<img src="' + escapeHTML(p.img) + '" alt="' + escapeHTML(productImageAlt(p)) + '" loading="lazy" decoding="async" onerror="this.src=\'https://placehold.co/300x200/222/555?text=No+Image\'">'
       + '<div class="recent-card-body">'
       + '<div class="recent-card-brand">' + escapeHTML(p.brand || '') + '</div>'
       + '<div class="recent-card-name">' + escapeHTML(p.name) + '</div>'
@@ -1138,7 +1190,7 @@ function renderWishlist() {
   var items = wishlist.map(function(id){ return products.find(function(p){ return String(p.id) === String(id); }); }).filter(Boolean);
   wishlist = items.map(function(p){ return p.id; }); saveWishlist(); updateFeatureCounts();
   if (!items.length) { el.innerHTML = '<div class="feature-empty"><div style="font-size:38px">♡</div><strong>Your wishlist is empty</strong><br>Save shoes you like and they will appear here.</div>'; return; }
-  el.innerHTML = items.map(function(p){ return '<div class="saved-product"><img src="'+p.img+'" alt="'+escapeHTML(p.name)+'" onerror="this.src=\'https://placehold.co/100x100/222/555?text=No+Image\'"><div><div class="saved-product-name">'+escapeHTML(p.name)+'</div><div class="saved-product-meta">'+escapeHTML(p.brand)+' · ₹'+Number(p.price).toLocaleString('en-IN')+'</div><div class="saved-actions"><button class="mini-action" onclick="closeFeature(\'wishlistOverlay\');openProduct('+Number(p.id)+')">View details</button><a class="compare-buy" href="'+affLink(p.link)+'" target="_blank" rel="noopener" onclick="handleBuyClick(\''+p.id+'\')">Buy on Amazon</a></div></div><button class="mini-action danger saved-remove" onclick="removeFromWishlist('+Number(p.id)+')">Remove</button></div>'; }).join('');
+  el.innerHTML = items.map(function(p){ return '<div class="saved-product"><img src="'+p.img+'" alt="'+escapeHTML(productImageAlt(p))+'" onerror="this.src=\'https://placehold.co/100x100/222/555?text=No+Image\'"><div><div class="saved-product-name">'+escapeHTML(p.name)+'</div><div class="saved-product-meta">'+escapeHTML(p.brand)+' · ₹'+Number(p.price).toLocaleString('en-IN')+'</div><div class="saved-actions"><button class="mini-action" onclick="closeFeature(\'wishlistOverlay\');openProduct('+Number(p.id)+')">View details</button><a class="compare-buy" href="'+affLink(p.link)+'" target="_blank" rel="noopener" onclick="handleBuyClick(\''+p.id+'\')">Buy on Amazon</a></div></div><button class="mini-action danger saved-remove" onclick="removeFromWishlist('+Number(p.id)+')">Remove</button></div>'; }).join('');
 }
 function renderCompare() {
   var el = document.getElementById('compareContent');
@@ -1146,7 +1198,7 @@ function renderCompare() {
   compareList = items.map(function(p){ return p.id; }); saveCompare(); updateFeatureCounts();
   if (!items.length) { el.innerHTML = '<div class="feature-empty"><div style="font-size:38px">⇄</div><strong>No shoes selected</strong><br>Use “Compare” on product cards to select up to 3 shoes.</div>'; return; }
   var rows = [
-    ['Product', function(p){return '<img class="compare-product-img" src="'+p.img+'" alt="'+escapeHTML(p.name)+'" onerror="this.src=\'https://placehold.co/120x100/222/555?text=No+Image\'"><div style="font-weight:600;margin-top:7px">'+escapeHTML(p.name)+'</div>'; }],
+    ['Product', function(p){return '<img class="compare-product-img" src="'+p.img+'" alt="'+escapeHTML(productImageAlt(p))+'" onerror="this.src=\'https://placehold.co/120x100/222/555?text=No+Image\'"><div style="font-weight:600;margin-top:7px">'+escapeHTML(p.name)+'</div>'; }],
     ['Brand', function(p){return escapeHTML(p.brand || 'Not specified');}],
     ['Category', function(p){return escapeHTML(p.category || 'Not specified');}],
     ['Price shown', function(p){return '₹'+Number(p.price||0).toLocaleString('en-IN');}],
@@ -1165,6 +1217,7 @@ function openCompare() { renderCompare(); document.getElementById('compareOverla
 function closeFeature(id) { var el=document.getElementById(id); if(el) el.classList.remove('open'); }
 function closeFeatureIfOutside(event,id) { if(event.target.id===id) closeFeature(id); }
 function escapeHTML(value) { return String(value == null ? '' : value).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];}); }
+function productImageAlt(product) { return [product.brand, product.name, product.category, 'shoes'].filter(Boolean).join(' '); }
 
 function renderGrid() {
   var grid = document.getElementById('productGrid');
@@ -1203,7 +1256,7 @@ function renderGrid() {
   grid.innerHTML = filtered.map(function(p) {
     return '<div class="product-card" onclick="openProduct(' + p.id + ')">'
       + '<div class="card-img-wrap">'
-      + '<img src="' + p.img + '" alt="' + escapeHTML(p.name) + '" loading="lazy" decoding="async" onerror="this.src=\'https://placehold.co/400x300/222/555?text=No+Image\'">'
+      + '<img src="' + p.img + '" alt="' + escapeHTML(productImageAlt(p)) + '" loading="lazy" decoding="async" onerror="this.src=\'https://placehold.co/400x300/222/555?text=No+Image\'">'
       + (p.badge ? '<div class="card-badge">' + p.badge + '</div>' : '')
       + '</div>'
       + '<div class="card-body">'
@@ -1352,7 +1405,7 @@ function renderCart() {
   itemsEl.innerHTML = validItems.map(function(item) {
     var p = item.product;
     return '<div class="cart-item">'
-      + '<img src="' + p.img + '" alt="' + escapeHTML(p.name) + '" onerror="this.src=\'https://placehold.co/100x100/222/555?text=No+Image\'">'
+      + '<img src="' + p.img + '" alt="' + escapeHTML(productImageAlt(p)) + '" onerror="this.src=\'https://placehold.co/100x100/222/555?text=No+Image\'">'
       + '<div><div class="cart-item-name">' + p.name + '</div>'
       + '<div class="cart-item-meta">₹' + Number(p.price).toLocaleString('en-IN') + ' each</div>'
       + '<div class="cart-item-actions">'
@@ -1392,6 +1445,7 @@ function openProduct(id) {
   if (!p) return;
   addRecentlyViewed(p.id);
   document.getElementById('mImg').src = p.img;
+  document.getElementById('mImg').alt = productImageAlt(p);
   document.getElementById('mBrand').textContent = p.brand + ' - ' + p.category;
   document.getElementById('mName').textContent = p.name;
   var r = Math.round(p.rating || 4);
@@ -1554,7 +1608,7 @@ function recCardHTML(entry) {
   var price = Number(p.price || 0);
   return '<article class="rec-card" role="listitem">'
     + '<div class="rec-card-img">'
-    +   '<img src="' + escapeHTML(p.img) + '" alt="' + escapeHTML(p.name) + '" loading="lazy"'
+    +   '<img src="' + escapeHTML(p.img) + '" alt="' + escapeHTML(productImageAlt(p)) + '" loading="lazy"'
     +   ' onerror="this.src=\'https://placehold.co/400x300/222/555?text=No+Image\'">'
     +   '<button type="button" class="rec-save' + (saved ? ' saved' : '') + '" data-rec-id="' + Number(p.id) + '"'
     +     ' aria-pressed="' + (saved ? 'true' : 'false') + '" aria-label="' + (saved ? 'Remove from wishlist' : 'Save to wishlist') + '"'
