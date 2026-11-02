@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kushtusingai.github.io/soleelite/sitemap.xml
