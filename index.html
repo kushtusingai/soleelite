@@ -6,7 +6,7 @@
 <title>SoleElite - Premium Footwear</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *,* ::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root { --bg:#111111;--bg2:#1c1c1c;--card:#222222;--gold:#C9A84C;--gold2:#e8c96e;--white:#f5f5f5;--muted:#888888;--border:#333333; }
   body { background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh; }
   header { position:sticky;top:0;z-index:100;background:rgba(17,17,17,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px; }
@@ -67,7 +67,7 @@
   .modal-desc { font-size:13px;color:#bbb;line-height:1.8;margin:16px 0;white-space:pre-line; }
   .modal-features { list-style:none;margin-bottom:20px; }
   .modal-features li { font-size:13px;color:#aaa;padding:5px 0;display:flex;gap:8px; }
-  .modal-features li::before { content:"checkmark";color:var(--gold);flex-shrink:0; }
+  .modal-features li::before { content:"✓";color:var(--gold);flex-shrink:0; }
   .modal-amazon-btn { display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#ff9900,#e47911);color:#111;border:none;width:100%;padding:16px;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;transition:opacity 0.2s;margin-bottom:10px; }
   .modal-amazon-btn:hover { opacity:0.9; }
   .modal-disclaimer { font-size:11px;color:var(--muted);text-align:center; }
@@ -116,6 +116,150 @@
   .cart-checkout-btn { display:block;text-align:center;width:100%;padding:13px;border-radius:8px;background:var(--gold);color:#111;text-decoration:none;font-weight:700;font-size:14px;border:0;cursor:pointer; }
   @media(max-width:600px) { header { grid-template-columns:1fr auto;height:60px;padding:0 14px; } header nav { display:none; } .header-actions { grid-column:2; } .logo { font-size:19px; } .cart-panel { padding:18px; } }
 
+
+  /* Wishlist and product comparison */
+  .header-feature-btn { background:transparent;color:var(--gold);border:1px solid var(--gold);border-radius:8px;padding:9px 11px;font:600 12px 'Inter',sans-serif;cursor:pointer;white-space:nowrap; }
+  .header-feature-btn:hover { background:var(--gold);color:#111; }
+  .feature-count { display:inline-flex;min-width:18px;height:18px;align-items:center;justify-content:center;background:var(--gold);color:#111;border-radius:20px;font-size:10px;margin-left:4px;padding:0 4px; }
+  .card-tools { display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px; }
+  .card-tool-btn { padding:9px 7px;border:1px solid var(--border);border-radius:6px;background:#292929;color:var(--white);font:600 11px 'Inter',sans-serif;cursor:pointer; }
+  .card-tool-btn:hover,.card-tool-btn.selected { border-color:var(--gold);color:var(--gold); }
+  .modal-feature-actions { display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px; }
+  .feature-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1300;justify-content:center;align-items:center;padding:18px; }
+  .feature-overlay.open { display:flex; }
+  .feature-panel { width:min(900px,100%);max-height:88vh;overflow:auto;background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px; }
+  .feature-heading { display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);padding-bottom:15px;margin-bottom:16px; }
+  .feature-heading h2 { font:700 25px 'Playfair Display',serif; }
+  .feature-close { background:none;border:0;color:var(--white);font-size:28px;cursor:pointer; }
+  .saved-product { display:grid;grid-template-columns:76px 1fr auto;gap:13px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border); }
+  .saved-product img { width:76px;height:76px;object-fit:cover;border-radius:8px;background:#292929; }
+  .saved-product-name { font-size:13px;font-weight:600;line-height:1.4; }
+  .saved-product-meta { color:var(--gold);font-size:12px;margin-top:5px; }
+  .saved-actions { display:flex;gap:7px;flex-wrap:wrap;margin-top:8px; }
+  .mini-action { border:1px solid var(--border);border-radius:5px;background:transparent;color:var(--white);padding:6px 9px;font-size:11px;cursor:pointer; }
+  .mini-action.danger { color:#e88b8b; }
+  .feature-empty { text-align:center;color:var(--muted);padding:40px 10px;line-height:1.7; }
+  .compare-table-wrap { overflow-x:auto; }
+  .compare-table { width:100%;border-collapse:collapse;min-width:560px; }
+  .compare-table th,.compare-table td { padding:13px 12px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top;font-size:13px; }
+  .compare-table th { color:var(--gold);font-weight:700; }
+  .compare-table td:first-child { color:var(--muted);font-weight:600;width:130px; }
+  .compare-product-img { width:100px;height:85px;object-fit:contain;background:#292929;border-radius:7px; }
+  .compare-buy { display:inline-block;background:linear-gradient(135deg,#ff9900,#e47911);color:#111;padding:7px 9px;border-radius:5px;text-decoration:none;font-size:11px;font-weight:700; }
+  .compare-toolbar { display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0; }
+  .compare-note { color:var(--muted);font-size:11px;line-height:1.6;margin-top:14px; }
+  .recent-section { display:none;padding:0 5% 70px; }
+  .recent-heading { display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px; }
+  .recent-heading .section-title { margin-bottom:0; }
+  .recent-clear { border:1px solid var(--border);background:transparent;color:var(--muted);padding:8px 12px;border-radius:6px;cursor:pointer;font-size:12px; }
+  .recent-clear:hover { color:var(--gold);border-color:var(--gold); }
+  .recent-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px; }
+  .recent-card { background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .2s,border-color .2s; }
+  .recent-card:hover { transform:translateY(-3px);border-color:var(--gold); }
+  .recent-card img { width:100%;height:145px;object-fit:contain;background:#292929;padding:10px; }
+  .recent-card-body { padding:12px; }
+  .recent-card-brand { color:var(--gold);font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px; }
+  .recent-card-name { color:var(--white);font-size:12px;font-weight:600;line-height:1.45;min-height:35px; }
+  .recent-card-price { color:var(--gold);font-weight:700;font-size:14px;margin:9px 0; }
+  .recent-card-actions { display:flex;gap:7px; }
+  .recent-card-actions button { flex:1;border:1px solid var(--border);background:transparent;color:var(--white);padding:7px 5px;border-radius:5px;font-size:11px;cursor:pointer; }
+  .recent-card-actions button:hover { border-color:var(--gold);color:var(--gold); }
+  @media(max-width:520px) { .recent-grid { grid-template-columns:repeat(2,minmax(0,1fr));gap:10px; } .recent-card img { height:115px; } }
+
+  @media(max-width:760px) { .header-feature-btn { padding:8px 7px;font-size:10px; } .header-actions { gap:5px; } }
+  @media(max-width:520px) { .saved-product { grid-template-columns:60px 1fr; } .saved-product img { width:60px;height:60px; } .saved-product > .saved-remove { grid-column:2;justify-self:start; } .feature-panel { padding:16px; } }
+
+
+/* Hybrid SoleElite storefront refinements */
+.hero-cta{display:inline-flex;align-items:center;justify-content:center;margin:0 auto 22px;padding:12px 24px;border-radius:7px;background:var(--gold);color:#111;text-decoration:none;font-size:13px;font-weight:700;transition:transform .2s}
+.hero-cta:hover{transform:translateY(-2px)}
+.storefront-kicker{max-width:1200px;margin:0 auto;padding:16px 24px 0;color:var(--muted);font-size:12px;letter-spacing:1.3px;text-transform:uppercase}
+.storefront-kicker strong{color:var(--gold)}
+.recent-section{display:none;padding:34px 24px 58px;max-width:1200px;margin:0 auto}
+.recent-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.recent-heading .section-title{margin-bottom:0}
+.recent-tools{display:flex;align-items:center;gap:8px}
+.recent-arrow{width:34px;height:34px;border:1px solid var(--border);background:var(--bg2);color:var(--white);border-radius:50%;cursor:pointer;font-size:18px}
+.recent-arrow:hover{border-color:var(--gold);color:var(--gold)}
+.recent-clear{border:1px solid var(--border);background:transparent;color:var(--muted);padding:8px 12px;border-radius:6px;cursor:pointer;font-size:12px}
+.recent-grid{display:flex;gap:16px;overflow-x:auto;overflow-y:hidden;padding:2px 2px 14px;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--gold) var(--bg2)}
+.recent-card{flex:0 0 220px;scroll-snap-align:start}
+@media(max-width:600px){.recent-section{padding:28px 16px 42px}.recent-card{flex-basis:185px}}
+
+/* ============ SoleElite Smart Recommendations (product-details carousel) ============ */
+.product-modal { max-width: 860px; }
+.modal-overlay { align-items: flex-start; overflow-y: auto; padding: 28px 20px; }
+@media (max-width: 640px) {
+  .modal-overlay { padding: 8px; }
+  .product-modal { padding: 20px 16px; max-height: calc(100vh - 16px); }
+  .modal-close { top: 10px; right: 12px; }
+}
+.rec-section { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+.rec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.rec-kicker { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.rec-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; line-height: 1.3; }
+.rec-subtitle { color: var(--muted); font-size: 11.5px; line-height: 1.55; margin-top: 5px; max-width: 460px; }
+.rec-controls { display: flex; gap: 8px; }
+.rec-arrow { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--white); font-size: 18px; line-height: 1; cursor: pointer; transition: border-color .2s, color .2s, opacity .2s; }
+.rec-arrow:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+.rec-arrow:disabled { opacity: .3; cursor: not-allowed; }
+.rec-track-wrap { position: relative; }
+.rec-list { display: flex; gap: 12px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 2px 2px 12px; scrollbar-width: thin; scrollbar-color: var(--gold) #2a2a2a; }
+.rec-list::-webkit-scrollbar { height: 6px; }
+.rec-list::-webkit-scrollbar-track { background: #2a2a2a; border-radius: 20px; }
+.rec-list::-webkit-scrollbar-thumb { background: #6b5a2a; border-radius: 20px; }
+.rec-list::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+.rec-card { flex: 0 0 186px; scroll-snap-align: start; background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; transition: transform .2s, border-color .2s, box-shadow .2s; }
+.rec-card:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: 0 12px 26px rgba(201,168,76,.14); }
+.rec-card-img { position: relative; aspect-ratio: 1 / 0.84; background: #2a2a2a; overflow: hidden; }
+.rec-card-img img { width: 100%; height: 100%; object-fit: cover; }
+.rec-save { position: absolute; top: 8px; right: 8px; width: 29px; height: 29px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); background: rgba(17,17,17,.72); color: #fff; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(2px); transition: color .2s, border-color .2s, transform .15s; }
+.rec-save:hover { transform: scale(1.08); border-color: var(--gold); }
+.rec-save.saved { color: var(--gold); border-color: var(--gold); }
+.rec-reason { position: absolute; bottom: 8px; left: 8px; background: rgba(201,168,76,.95); color: #111; font-size: 9px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; padding: 4px 8px; border-radius: 100px; max-width: calc(100% - 16px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rec-card-body { padding: 11px 12px 12px; display: flex; flex-direction: column; flex: 1; }
+.rec-card-brand { color: var(--gold); font-size: 9px; letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 4px; }
+.rec-card-name { font-size: 12px; font-weight: 600; line-height: 1.4; min-height: 34px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.rec-match { font-size: 10px; color: #969696; line-height: 1.45; margin-top: 6px; min-height: 15px; }
+.rec-price-row { display: flex; align-items: baseline; gap: 6px; margin-top: auto; padding-top: 9px; flex-wrap: wrap; }
+.rec-price { color: var(--gold); font-weight: 700; font-size: 15px; }
+.rec-price-orig { color: var(--muted); font-size: 10.5px; text-decoration: line-through; }
+.rec-price-note { font-size: 10px; color: #9b9b9b; margin-top: 3px; }
+.rec-actions { display: grid; grid-template-columns: 1fr auto; gap: 6px; margin-top: 10px; }
+.rec-view-btn { border: 1px solid var(--border); background: #2a2a2a; color: var(--white); border-radius: 6px; padding: 8px 6px; font: 600 11px 'Inter', sans-serif; cursor: pointer; transition: border-color .2s, color .2s; }
+.rec-view-btn:hover { border-color: var(--gold); color: var(--gold); }
+.rec-amazon-btn { display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg,#ff9900,#e47911); color: #111; border-radius: 6px; padding: 8px 10px; font-size: 11px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: opacity .2s; }
+.rec-amazon-btn:hover { opacity: .88; }
+.rec-footnote { color: #777; font-size: 10px; line-height: 1.6; margin-top: 4px; }
+.rec-empty { color: var(--muted); font-size: 12px; padding: 18px 4px; line-height: 1.6; }
+@media (max-width: 520px) {
+  .rec-card { flex-basis: 168px; }
+  .rec-title { font-size: 17px; }
+  .rec-card-name { min-height: 32px; }
+  .rec-reason { font-size: 8.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rec-list { scroll-behavior: auto; }
+  .rec-card, .rec-save { transition: none; }
+}
+
+/* Jump link from the top of the product details to the recommendations */
+.rec-jump { display: block; width: 100%; margin: 2px 0 0; padding: 10px 12px; border: 1px dashed #4a4a4a; border-radius: 7px; background: transparent; color: var(--gold); font: 600 11.5px 'Inter', sans-serif; letter-spacing: .3px; cursor: pointer; transition: border-color .2s, background .2s; }
+.rec-jump:hover { border-color: var(--gold); background: rgba(201,168,76,.06); }
+
+/* Mobile fit: compress the header so the three action buttons never overflow */
+@media (max-width: 600px) {
+  header { padding: 0 10px; }
+  .header-actions { gap: 4px; }
+  .header-feature-btn { padding: 7px 4px; font-size: 9.5px; letter-spacing: 0; }
+  .cart-open-btn { padding: 8px 8px; font-size: 12px; }
+  .logo { font-size: 17px; letter-spacing: 1.5px; }
+}
+@media (max-width: 370px) {
+  .header-feature-btn { padding: 7px 3px; font-size: 9px; }
+  .feature-count { min-width: 15px; height: 15px; font-size: 9px; }
+  .cart-count { min-width: 16px; height: 16px; font-size: 10px; }
+}
 </style>
 </head>
 <body>
@@ -130,6 +274,8 @@
     <a onclick="filterCat('Sports',this)">Sports</a>
   </nav>
   <div class="header-actions">
+    <button class="header-feature-btn" type="button" onclick="openWishlist()">♡ Saved <span id="wishlistCount" class="feature-count">0</span></button>
+    <button class="header-feature-btn" type="button" onclick="openCompare()">⇄ Compare <span id="compareCount" class="feature-count">0</span></button>
     <button class="cart-open-btn" type="button" onclick="openCart()">🛒 Cart <span id="cartCount" class="cart-count">0</span></button>
   </div>
 </header>
@@ -138,8 +284,10 @@
   <div class="hero-eyebrow">Curated Footwear Collection</div>
   <h1 class="hero-title">Step Into<br><em>Excellence</em></h1>
   <p class="hero-sub">Handpicked premium shoes from top brands. Every pair verified, every deal real.</p>
+  <a class="hero-cta" href="#shopCollection">Shop the collection&nbsp; &#8594;</a>
   <div class="scroll-hint">Explore collection <span>&#8595;</span></div>
 </section>
+
 
 <div class="trust-strip">
   <div class="trust-item"><span class="trust-icon">&#128737;</span> Secure Amazon Checkout</div>
@@ -170,10 +318,25 @@
 </div>
 <p id="resultsCount" class="results-count" aria-live="polite"></p>
 
-<section class="grid-section">
-  <div class="section-label">Our Collection</div>
-  <h2 class="section-title">Featured Footwear</h2>
+<section class="grid-section" id="shopCollection">
+  <div class="section-label">Find Your Next Pair</div>
+  <h2 class="section-title">Shop All Footwear</h2>
   <div class="product-grid" id="productGrid"></div>
+</section>
+
+<section class="recent-section" id="recentSection">
+  <div class="recent-heading">
+    <div>
+      <div class="section-label">Your Browsing History</div>
+      <h2 class="section-title">Recently Viewed</h2>
+    </div>
+    <div class="recent-tools">
+      <button type="button" class="recent-arrow" aria-label="Scroll recently viewed left" onclick="scrollRecentlyViewed(-1)">‹</button>
+      <button type="button" class="recent-arrow" aria-label="Scroll recently viewed right" onclick="scrollRecentlyViewed(1)">›</button>
+      <button type="button" class="recent-clear" onclick="clearRecentlyViewed()">Clear history</button>
+    </div>
+  </div>
+  <div class="recent-grid" id="recentGrid"></div>
 </section>
 
 <footer>
@@ -195,8 +358,32 @@
     <p id="mDesc" class="modal-desc"></p>
     <ul id="mFeatures" class="modal-features"></ul>
     <button type="button" class="modal-cart-btn" id="mAddCart" onclick="addCurrentProductToCart()">Add to Cart</button>
+    <div class="modal-feature-actions">
+      <button type="button" class="card-tool-btn" id="mWishlistBtn" onclick="toggleWishlist(currentModalProductId)">♡ Save to Wishlist</button>
+      <button type="button" class="card-tool-btn" id="mCompareBtn" onclick="toggleCompare(currentModalProductId)">⇄ Add to Compare</button>
+    </div>
     <a id="mLink" class="modal-amazon-btn" href="#" target="_blank" rel="noopener">Buy on Amazon</a>
     <p class="modal-disclaimer">You will be redirected to Amazon.in. We may earn an affiliate commission.</p>
+    <button type="button" class="rec-jump" onclick="scrollToRecommendations()">↓ View similar shoes for this pair</button>
+    <!-- SMART RECOMMENDATIONS -->
+    <section class="rec-section" id="recSection" aria-labelledby="recTitle">
+      <div class="rec-head">
+        <div>
+          <div class="rec-kicker">You may also like</div>
+          <h3 class="rec-title" id="recTitle">Recommended for this pair</h3>
+          <p class="rec-subtitle" id="recSubtitle"></p>
+        </div>
+        <div class="rec-controls">
+          <button type="button" class="rec-arrow" id="recPrev" aria-label="Scroll recommendations left" onclick="scrollRecommendations(-1)">‹</button>
+          <button type="button" class="rec-arrow" id="recNext" aria-label="Scroll recommendations right" onclick="scrollRecommendations(1)">›</button>
+        </div>
+      </div>
+      <div class="rec-track-wrap">
+        <div class="rec-list" id="recList" role="list" aria-live="polite"></div>
+      </div>
+      <p class="rec-footnote">Matched from the SoleElite catalogue on category, brand, price range and description keywords. Always check the Amazon listing for current price, sizes and availability.</p>
+    </section>
+
   </div>
 </div>
 
@@ -212,16 +399,33 @@
   </aside>
 </div>
 
+<!-- WISHLIST -->
+<div class="feature-overlay" id="wishlistOverlay" onclick="closeFeatureIfOutside(event,'wishlistOverlay')">
+  <section class="feature-panel" role="dialog" aria-modal="true" aria-labelledby="wishlistTitle">
+    <div class="feature-heading"><h2 id="wishlistTitle">♡ Your Wishlist</h2><button class="feature-close" type="button" onclick="closeFeature('wishlistOverlay')">×</button></div>
+    <div id="wishlistItems"></div>
+  </section>
+</div>
+
+<!-- PRODUCT COMPARISON -->
+<div class="feature-overlay" id="compareOverlay" onclick="closeFeatureIfOutside(event,'compareOverlay')">
+  <section class="feature-panel" role="dialog" aria-modal="true" aria-labelledby="compareTitle">
+    <div class="feature-heading"><h2 id="compareTitle">⇄ Compare Shoes</h2><button class="feature-close" type="button" onclick="closeFeature('compareOverlay')">×</button></div>
+    <div id="compareContent"></div>
+  </section>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 const API_BASE_URL = "https://soleelite-backend.onrender.com";
 
 function getSessionId() {
-  let id = localStorage.getItem("soleelite_session_id");
+  let id = null;
+  try { id = localStorage.getItem("soleelite_session_id"); } catch (e) {}
   if (!id) {
     id = Date.now().toString(36) + Math.random().toString(36).slice(2);
-    localStorage.setItem("soleelite_session_id", id);
+    try { localStorage.setItem("soleelite_session_id", id); } catch (e) {}
   }
   return id;
 }
@@ -632,9 +836,153 @@ try { saved = JSON.parse(localStorage.getItem('soleelite_products_52items')); } 
 var products = (saved && Array.isArray(saved) && saved.length > 0) ? saved : JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
 saveProducts();
 
-function saveProducts() { localStorage.setItem('soleelite_products_52items', JSON.stringify(products)); }
+function saveProducts() { try { localStorage.setItem('soleelite_products_52items', JSON.stringify(products)); } catch(e) {} }
 
 var currentCat = 'All';
+
+// Wishlist and comparison are browser-only features saved on this device.
+var wishlist = [];
+var compareList = [];
+try { var savedWishlist = JSON.parse(localStorage.getItem('soleelite_wishlist')); if (Array.isArray(savedWishlist)) wishlist = savedWishlist; } catch(e) {}
+try { var savedCompare = JSON.parse(localStorage.getItem('soleelite_compare')); if (Array.isArray(savedCompare)) compareList = savedCompare.slice(0,3); } catch(e) {}
+
+// Recently viewed products are stored locally in this browser (latest first).
+var recentlyViewed = [];
+try {
+  var storedRecent = JSON.parse(localStorage.getItem('soleelite_recently_viewed'));
+  if (Array.isArray(storedRecent)) recentlyViewed = storedRecent.slice(0,6);
+} catch(e) {}
+
+function saveRecentlyViewed() {
+  try { localStorage.setItem('soleelite_recently_viewed', JSON.stringify(recentlyViewed)); } catch(e) {}
+}
+function addRecentlyViewed(id) {
+  var product = products.find(function(p){ return String(p.id) === String(id); });
+  if (!product) return;
+  recentlyViewed = [product.id].concat(recentlyViewed.filter(function(x){ return String(x) !== String(product.id); })).slice(0,6);
+  saveRecentlyViewed();
+  renderRecentlyViewed();
+}
+function renderRecentlyViewed() {
+  var section = document.getElementById('recentSection');
+  var grid = document.getElementById('recentGrid');
+  if (!section || !grid) return;
+  var items = recentlyViewed.map(function(id) {
+    return products.find(function(p){ return String(p.id) === String(id); });
+  }).filter(Boolean);
+  recentlyViewed = items.map(function(p){ return p.id; });
+  saveRecentlyViewed();
+  section.style.display = items.length ? 'block' : 'none';
+  grid.innerHTML = items.map(function(p) {
+    return '<article class="recent-card" onclick="openProduct(' + Number(p.id) + ')">'
+      + '<img src="' + escapeHTML(p.img) + '" alt="' + escapeHTML(p.name) + '" onerror="this.src=\'https://placehold.co/300x200/222/555?text=No+Image\'">'
+      + '<div class="recent-card-body">'
+      + '<div class="recent-card-brand">' + escapeHTML(p.brand || '') + '</div>'
+      + '<div class="recent-card-name">' + escapeHTML(p.name) + '</div>'
+      + '<div class="recent-card-price">₹' + Number(p.price || 0).toLocaleString('en-IN') + '</div>'
+      + '<div class="recent-card-actions"><button type="button" onclick="event.stopPropagation();openProduct(' + Number(p.id) + ')">View again</button>'
+      + '<button type="button" onclick="event.stopPropagation();removeRecentlyViewed(' + Number(p.id) + ')">Remove</button></div>'
+      + '</div></article>';
+  }).join('');
+}
+function scrollRecentlyViewed(direction) {
+  var grid = document.getElementById('recentGrid');
+  if (!grid) return;
+  grid.scrollBy({ left: direction * Math.max(220, grid.clientWidth * 0.75), behavior: 'smooth' });
+}
+function removeRecentlyViewed(id) {
+  recentlyViewed = recentlyViewed.filter(function(x){ return String(x) !== String(id); });
+  saveRecentlyViewed();
+  renderRecentlyViewed();
+}
+function clearRecentlyViewed() {
+  recentlyViewed = [];
+  saveRecentlyViewed();
+  renderRecentlyViewed();
+  showToast('Recently viewed history cleared');
+}
+
+function saveWishlist() { try { localStorage.setItem('soleelite_wishlist', JSON.stringify(wishlist)); } catch(e) {} }
+function saveCompare() { try { localStorage.setItem('soleelite_compare', JSON.stringify(compareList)); } catch(e) {} }
+function isWishlisted(id) { return wishlist.some(function(x){ return String(x) === String(id); }); }
+function isCompared(id) { return compareList.some(function(x){ return String(x) === String(id); }); }
+function updateFeatureCounts() {
+  var w = document.getElementById('wishlistCount');
+  var c = document.getElementById('compareCount');
+  if (w) w.textContent = wishlist.length;
+  if (c) c.textContent = compareList.length;
+}
+function toggleWishlist(id) {
+  var product = products.find(function(p){ return String(p.id) === String(id); });
+  if (!product) return;
+  if (isWishlisted(id)) { wishlist = wishlist.filter(function(x){ return String(x) !== String(id); }); showToast('Removed from wishlist'); }
+  else { wishlist.push(product.id); showToast('Saved to wishlist'); }
+  saveWishlist(); updateFeatureCounts();
+  if (document.getElementById('wishlistOverlay').classList.contains('open')) renderWishlist();
+  if (currentModalProductId !== null && String(currentModalProductId) === String(id)) updateModalFeatureButtons(id);
+  renderGrid();
+}
+function removeFromWishlist(id) {
+  wishlist = wishlist.filter(function(x){ return String(x) !== String(id); });
+  saveWishlist(); updateFeatureCounts(); renderWishlist(); renderGrid();
+  if (currentModalProductId !== null && String(currentModalProductId) === String(id)) updateModalFeatureButtons(id);
+}
+function toggleCompare(id) {
+  var product = products.find(function(p){ return String(p.id) === String(id); });
+  if (!product) return;
+  if (isCompared(id)) { compareList = compareList.filter(function(x){ return String(x) !== String(id); }); showToast('Removed from comparison'); }
+  else {
+    if (compareList.length >= 3) { showToast('You can compare up to 3 shoes'); return; }
+    compareList.push(product.id); showToast('Added to comparison');
+  }
+  saveCompare(); updateFeatureCounts();
+  if (document.getElementById('compareOverlay').classList.contains('open')) renderCompare();
+  if (currentModalProductId !== null && String(currentModalProductId) === String(id)) updateModalFeatureButtons(id);
+  renderGrid();
+}
+function removeFromCompare(id) {
+  compareList = compareList.filter(function(x){ return String(x) !== String(id); });
+  saveCompare(); updateFeatureCounts(); renderCompare(); renderGrid();
+  if (currentModalProductId !== null && String(currentModalProductId) === String(id)) updateModalFeatureButtons(id);
+}
+function updateModalFeatureButtons(id) {
+  var w = document.getElementById('mWishlistBtn');
+  var c = document.getElementById('mCompareBtn');
+  if (w) { w.textContent = isWishlisted(id) ? '♥ Saved to Wishlist' : '♡ Save to Wishlist'; w.classList.toggle('selected', isWishlisted(id)); }
+  if (c) { c.textContent = isCompared(id) ? '✓ Added to Compare' : '⇄ Add to Compare'; c.classList.toggle('selected', isCompared(id)); }
+}
+function renderWishlist() {
+  var el = document.getElementById('wishlistItems');
+  var items = wishlist.map(function(id){ return products.find(function(p){ return String(p.id) === String(id); }); }).filter(Boolean);
+  wishlist = items.map(function(p){ return p.id; }); saveWishlist(); updateFeatureCounts();
+  if (!items.length) { el.innerHTML = '<div class="feature-empty"><div style="font-size:38px">♡</div><strong>Your wishlist is empty</strong><br>Save shoes you like and they will appear here.</div>'; return; }
+  el.innerHTML = items.map(function(p){ return '<div class="saved-product"><img src="'+p.img+'" alt="'+escapeHTML(p.name)+'" onerror="this.src=\'https://placehold.co/100x100/222/555?text=No+Image\'"><div><div class="saved-product-name">'+escapeHTML(p.name)+'</div><div class="saved-product-meta">'+escapeHTML(p.brand)+' · ₹'+Number(p.price).toLocaleString('en-IN')+'</div><div class="saved-actions"><button class="mini-action" onclick="closeFeature(\'wishlistOverlay\');openProduct('+Number(p.id)+')">View details</button><a class="compare-buy" href="'+affLink(p.link)+'" target="_blank" rel="noopener" onclick="handleBuyClick(\''+p.id+'\')">Buy on Amazon</a></div></div><button class="mini-action danger saved-remove" onclick="removeFromWishlist('+Number(p.id)+')">Remove</button></div>'; }).join('');
+}
+function renderCompare() {
+  var el = document.getElementById('compareContent');
+  var items = compareList.map(function(id){ return products.find(function(p){ return String(p.id) === String(id); }); }).filter(Boolean);
+  compareList = items.map(function(p){ return p.id; }); saveCompare(); updateFeatureCounts();
+  if (!items.length) { el.innerHTML = '<div class="feature-empty"><div style="font-size:38px">⇄</div><strong>No shoes selected</strong><br>Use “Compare” on product cards to select up to 3 shoes.</div>'; return; }
+  var rows = [
+    ['Product', function(p){return '<img class="compare-product-img" src="'+p.img+'" alt="'+escapeHTML(p.name)+'" onerror="this.src=\'https://placehold.co/120x100/222/555?text=No+Image\'"><div style="font-weight:600;margin-top:7px">'+escapeHTML(p.name)+'</div>'; }],
+    ['Brand', function(p){return escapeHTML(p.brand || 'Not specified');}],
+    ['Category', function(p){return escapeHTML(p.category || 'Not specified');}],
+    ['Price shown', function(p){return '₹'+Number(p.price||0).toLocaleString('en-IN');}],
+    ['MRP shown', function(p){return p.orig ? '₹'+Number(p.orig).toLocaleString('en-IN') : 'Not available';}],
+    ['Rating shown', function(p){return p.rating ? Number(p.rating).toFixed(1)+' / 5' : 'Not available';}],
+    ['Description', function(p){return escapeHTML(p.shortDesc || 'Not available');}],
+    ['Highlights', function(p){return escapeHTML((p.features||[]).join(' · ') || 'Not available');}],
+    ['Amazon', function(p){return '<a class="compare-buy" href="'+affLink(p.link)+'" target="_blank" rel="noopener" onclick="handleBuyClick(\''+p.id+'\')">View on Amazon</a>'; }],
+    ['Remove', function(p){return '<button class="mini-action danger" onclick="removeFromCompare('+Number(p.id)+')">Remove</button>'; }]
+  ];
+  el.innerHTML = '<div class="compare-toolbar"><span style="color:var(--muted);font-size:12px">'+items.length+' of 3 shoes selected</span><button class="mini-action" onclick="clearCompare()">Clear comparison</button></div><div class="compare-table-wrap"><table class="compare-table"><tbody>'+rows.map(function(row){return '<tr><td>'+row[0]+'</td>'+items.map(function(p){return '<td>'+row[1](p)+'</td>';}).join('')+'</tr>';}).join('')+'</tbody></table></div><p class="compare-note">Prices, ratings and product details shown here are the information currently stored on SoleElite and may differ from live Amazon listings. Check the Amazon product page for current price, sizes, availability and full specifications. SoleElite does not sell or ship products directly.</p>';
+}
+function clearCompare() { compareList = []; saveCompare(); updateFeatureCounts(); renderCompare(); renderGrid(); }
+function openWishlist() { renderWishlist(); document.getElementById('wishlistOverlay').classList.add('open'); }
+function openCompare() { renderCompare(); document.getElementById('compareOverlay').classList.add('open'); }
+function closeFeature(id) { var el=document.getElementById(id); if(el) el.classList.remove('open'); }
+function closeFeatureIfOutside(event,id) { if(event.target.id===id) closeFeature(id); }
+function escapeHTML(value) { return String(value == null ? '' : value).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];}); }
 
 function renderGrid() {
   var grid = document.getElementById('productGrid');
@@ -673,7 +1021,7 @@ function renderGrid() {
   grid.innerHTML = filtered.map(function(p) {
     return '<div class="product-card" onclick="openProduct(' + p.id + ')">'
       + '<div class="card-img-wrap">'
-      + '<img src="' + p.img + '" alt="' + p.name + '" onerror="this.src=\'https://placehold.co/400x300/222/555?text=No+Image\'">'
+      + '<img src="' + p.img + '" alt="' + escapeHTML(p.name) + '" onerror="this.src=\'https://placehold.co/400x300/222/555?text=No+Image\'">'
       + (p.badge ? '<div class="card-badge">' + p.badge + '</div>' : '')
       + '</div>'
       + '<div class="card-body">'
@@ -687,6 +1035,10 @@ function renderGrid() {
       + ' <a class="amazon-btn" href="' + affLink(p.link) + '" target="_blank" rel="noopener" onclick="handleBuyClick(\'' + p.id + '\'); event.stopPropagation()">Buy on Amazon</a>'
       + '</div>'
       + '<button type="button" class="add-cart-btn" onclick="event.stopPropagation(); addToCart(' + p.id + ')">+ Add to Cart</button>'
+      + '<div class="card-tools">'
+      + '<button type="button" class="card-tool-btn ' + (isWishlisted(p.id) ? 'selected' : '') + '" onclick="event.stopPropagation(); toggleWishlist(' + p.id + ')">' + (isWishlisted(p.id) ? '♥ Saved' : '♡ Wishlist') + '</button>'
+      + '<button type="button" class="card-tool-btn ' + (isCompared(p.id) ? 'selected' : '') + '" onclick="event.stopPropagation(); toggleCompare(' + p.id + ')">' + (isCompared(p.id) ? '✓ Comparing' : '⇄ Compare') + '</button>'
+      + '</div>'
       + '</div></div>';
   }).join('');
 }
@@ -805,7 +1157,7 @@ function renderCart() {
   itemsEl.innerHTML = validItems.map(function(item) {
     var p = item.product;
     return '<div class="cart-item">'
-      + '<img src="' + p.img + '" alt="' + p.name.replace(/"/g, '&quot;') + '" onerror="this.src=\'https://placehold.co/100x100/222/555?text=No+Image\'">'
+      + '<img src="' + p.img + '" alt="' + escapeHTML(p.name) + '" onerror="this.src=\'https://placehold.co/100x100/222/555?text=No+Image\'">'
       + '<div><div class="cart-item-name">' + p.name + '</div>'
       + '<div class="cart-item-meta">₹' + Number(p.price).toLocaleString('en-IN') + ' each</div>'
       + '<div class="cart-item-actions">'
@@ -834,13 +1186,16 @@ document.addEventListener('keydown', function(event) {
   if (event.key === 'Escape') {
     closeCart();
     closeModal('productModal');
+    closeFeature('wishlistOverlay');
+    closeFeature('compareOverlay');
   }
 });
 
 function openProduct(id) {
   currentModalProductId = id;
-  var p = products.find(function(x){return x.id==id;});
+  var p = products.find(function(x){return String(x.id) === String(id);});
   if (!p) return;
+  addRecentlyViewed(p.id);
   document.getElementById('mImg').src = p.img;
   document.getElementById('mBrand').textContent = p.brand + ' - ' + p.category;
   document.getElementById('mName').textContent = p.name;
@@ -850,9 +1205,11 @@ function openProduct(id) {
   document.getElementById('mPrice').textContent = 'Rs.' + Number(p.price).toLocaleString('en-IN');
   document.getElementById('mOrig').textContent = p.orig ? 'M.R.P: Rs.' + Number(p.orig).toLocaleString('en-IN') : '';
   document.getElementById('mDesc').textContent = p.fullDesc || p.shortDesc || '';
-  document.getElementById('mFeatures').innerHTML = (p.features||[]).map(function(f){return '<li>' + f + '</li>';}).join('');
+  document.getElementById('mFeatures').innerHTML = (p.features||[]).map(function(f){return '<li>' + escapeHTML(f) + '</li>';}).join('');
   document.getElementById('mLink').href = affLink(p.link);
   document.getElementById('mLink').onclick = function() { handleBuyClick(p.id); };
+  updateModalFeatureButtons(p.id);
+  renderRecommendations(p.id);
   openModal('productModal');
 }
 
@@ -869,6 +1226,253 @@ function showToast(msg) {
 renderGrid();
 renderCart();
 updateCartCount();
+updateFeatureCounts();
+
+renderRecentlyViewed();
+
+/* ============================================================
+   SOLEELITE SMART RECOMMENDATIONS
+   Recommends up to 4 products based on the product being viewed:
+     1. Same category            -> big score boost
+     2. Same brand               -> boost
+     3. Similar price range      -> boost, closer price = more points
+     4. Description keyword match -> boost, proportional to similarity
+   Cards open the real product details and use the real Amazon links.
+   ============================================================ */
+var REC_LIMIT = 4;
+
+var REC_STOP_WORDS = {};
+('a,an,the,and,or,for,with,of,to,in,on,at,by,from,is,are,be,as,its,it,this,that,these,those,'
+ + 'men,men\'s,mens,man,women,women\'s,womens,unisex,adult,kids,boy,girl,male,female,'
+ + 'shoe,shoes,sneaker,sneakers,footwear,pair,style,stylish,design,colour,color,colorway,'
+ + 'made,india,product,product,use,used,daily,everyday,all,day,long,wear,wearing,'
+ + 'comfort,comfortable,comfy,cushion,cushioned,cushioning,soft,support,supportive,'
+ + 'material,materials,type,outer,inner,sole,upper,heel,closure,occasion,perfect,great,good,best,ideal,'
+ + 'amazon,verified,rating,ratings,style,model,brand,available,size,sizes,new,'
+ + 'keep,keeps,feet,foot,walking,walk,run,running,shoe,lightweight,durable,premium,classic,easy,'
+ + 'feature,features,offers,offer,provide,provides,ensure,ensures,helps,help,built,'
+ + 'high,quality,look,looks,plus,non,anti,water,resistant').split(',').forEach(function(w){ REC_STOP_WORDS[w] = true; });
+
+function recTokens(product) {
+  var text = [
+    product.name, product.shortDesc, product.fullDesc,
+    (product.features || []).join(' '), product.category
+  ].join(' ').toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
+  var set = {};
+  text.split(/\s+/).forEach(function(word) {
+    if (word.length > 2 && !REC_STOP_WORDS[word]) set[word] = true;
+  });
+  return Object.keys(set);
+}
+
+function recKeywordSimilarity(tokensA, tokensB) {
+  if (!tokensA.length || !tokensB.length) return 0;
+  var mapB = {};
+  tokensB.forEach(function(t){ mapB[t] = true; });
+  var shared = tokensA.filter(function(t){ return mapB[t]; }).length;
+  return shared / Math.sqrt(tokensA.length * tokensB.length); // 0 - 1
+}
+
+function recPriceBand(price) {
+  if (price < 500) return 'Under ₹500';
+  if (price < 1000) return '₹500–999';
+  if (price < 2500) return '₹1K–2.5K';
+  if (price < 5000) return '₹2.5K–5K';
+  return '₹5K+';
+}
+
+function getRecommendations(sourceId) {
+  var source = products.find(function(p){ return String(p.id) === String(sourceId); });
+  if (!source) return [];
+
+  var sourceTokens = recTokens(source);
+  var sourcePrice = Number(source.price) || 1;
+  var sourceName = String(source.name || '').trim().toLowerCase();
+
+  var scored = products.filter(function(p) {
+    if (String(p.id) === String(source.id)) return false;
+    // skip an identical listing (same name + brand) so the carousel never repeats the current shoe
+    if (String(p.name || '').trim().toLowerCase() === sourceName && String(p.brand) === String(source.brand)) return false;
+    return true;
+  }).map(function(p) {
+    var score = 0;
+    var sameCat = String(p.category) === String(source.category);
+    var sameBrand = String(p.brand).toLowerCase() === String(source.brand).toLowerCase();
+
+    // 1. Same category
+    if (sameCat) score += 40;
+    // 2. Same brand (extra points when the category matches too)
+    if (sameBrand) score += 25;
+    if (sameCat && sameBrand) score += 10;
+
+    // 3. Similar price range (closer price = more points)
+    var price = Number(p.price) || 0;
+    var gap = Math.abs(price - sourcePrice) / Math.max(sourcePrice, 1);
+    var closePrice = gap <= 0.25;
+    if (gap <= 0.10) score += 16;
+    else if (gap <= 0.25) score += 12;
+    else if (gap <= 0.45) score += 7;
+    else if (gap <= 0.75) score += 3;
+
+    // 4. Product similarity from name / description / feature keywords
+    var sim = recKeywordSimilarity(sourceTokens, recTokens(p));
+    if (sim > 0) score += Math.min(26, Math.round(sim * 60));
+    var similarStyle = sim >= 0.22;
+
+    // small nudge so well-rated options break ties
+    score += Math.min(4, Number(p.rating || 0));
+
+    var reasons = [];
+    if (sameBrand) reasons.push('same brand');
+    if (sameCat) reasons.push('same category');
+    if (closePrice) reasons.push('similar price');
+    if (similarStyle) reasons.push('similar style');
+
+    var label, matchText;
+    if (sameBrand && sameCat) { label = 'Same brand + category'; matchText = 'same brand · same category'; }
+    else if (sameBrand) { label = 'Same brand'; matchText = reasons.slice(0, 2).join(' · '); }
+    else if (sameCat) { label = 'Same category'; matchText = reasons.slice(0, 2).join(' · '); }
+    else if (closePrice) { label = 'Similar price'; matchText = reasons.slice(0, 2).join(' · '); }
+    else if (similarStyle) { label = 'Similar style'; matchText = reasons.slice(0, 2).join(' · '); }
+    else { label = 'You may like'; matchText = 'popular pick'; }
+
+    return {
+      product: p,
+      score: score,
+      label: label,
+      matchText: matchText || 'popular pick',
+      sim: sim
+    };
+  }).filter(function(entry) { return entry.score > 0; });
+
+  scored.sort(function(a, b) {
+    if (b.score !== a.score) return b.score - a.score;
+    return Number(b.product.rating || 0) - Number(a.product.rating || 0);
+  });
+
+  return scored.slice(0, REC_LIMIT);
+}
+
+function recCardHTML(entry) {
+  var p = entry.product;
+  var saved = isWishlisted(p.id);
+  var price = Number(p.price || 0);
+  return '<article class="rec-card" role="listitem">'
+    + '<div class="rec-card-img">'
+    +   '<img src="' + escapeHTML(p.img) + '" alt="' + escapeHTML(p.name) + '" loading="lazy"'
+    +   ' onerror="this.src=\'https://placehold.co/400x300/222/555?text=No+Image\'">'
+    +   '<button type="button" class="rec-save' + (saved ? ' saved' : '') + '" data-rec-id="' + Number(p.id) + '"'
+    +     ' aria-pressed="' + (saved ? 'true' : 'false') + '" aria-label="' + (saved ? 'Remove from wishlist' : 'Save to wishlist') + '"'
+    +     ' title="' + (saved ? 'Saved to wishlist' : 'Save to wishlist') + '"'
+    +     ' onclick="toggleWishlist(' + Number(p.id) + ')">' + (saved ? '♥' : '♡') + '</button>'
+    +   '<span class="rec-reason">' + escapeHTML(entry.label) + '</span>'
+    + '</div>'
+    + '<div class="rec-card-body">'
+    +   '<div class="rec-card-brand">' + escapeHTML(p.brand) + ' · ' + escapeHTML(recPriceBand(price)) + '</div>'
+    +   '<div class="rec-card-name">' + escapeHTML(p.name) + '</div>'
+    +   '<div class="rec-match">' + escapeHTML(entry.matchText) + '</div>'
+    +   '<div class="rec-price-row">'
+    +     '<span class="rec-price">₹' + price.toLocaleString('en-IN') + '</span>'
+    +     (p.orig ? '<span class="rec-price-orig">₹' + Number(p.orig).toLocaleString('en-IN') + '</span>' : '')
+    +   '</div>'
+    +   '<div class="rec-actions">'
+    +     '<button type="button" class="rec-view-btn" onclick="openRecommendedProduct(' + Number(p.id) + ')">View details</button>'
+    +     '<a class="rec-amazon-btn" href="' + affLink(p.link) + '" target="_blank" rel="noopener" onclick="handleBuyClick(\'' + p.id + '\')">Amazon</a>'
+    +   '</div>'
+    + '</div>'
+    + '</article>';
+}
+
+function renderRecommendations(sourceId) {
+  var list = document.getElementById('recList');
+  var subtitle = document.getElementById('recSubtitle');
+  if (!list) return;
+  var source = products.find(function(p){ return String(p.id) === String(sourceId); });
+  var picks = getRecommendations(sourceId);
+
+  if (subtitle && source) {
+    subtitle.textContent = 'Picked for this ' + source.category + ' shoe from ' + source.brand
+      + ' at ₹' + Number(source.price || 0).toLocaleString('en-IN')
+      + ' — ranked by category, brand, price range and description keywords.';
+  }
+
+  if (!picks.length) {
+    list.innerHTML = '<p class="rec-empty">No close matches in the catalogue right now. Browse all footwear to explore more pairs.</p>';
+    updateRecArrows();
+    return;
+  }
+
+  list.innerHTML = picks.map(recCardHTML).join('');
+  list.scrollLeft = 0;
+  // wait for layout so the arrow enabled/disabled state is accurate
+  requestAnimationFrame(function(){ updateRecArrows(); });
+}
+
+function openRecommendedProduct(id) {
+  openProduct(id);
+  var overlay = document.getElementById('productModal');
+  var panel = overlay ? overlay.querySelector('.product-modal') : null;
+  if (panel) panel.scrollTop = 0;
+  var nameEl = document.getElementById('mName');
+  if (nameEl) { nameEl.setAttribute('tabindex', '-1'); nameEl.focus({ preventScroll: true }); }
+}
+
+function scrollToRecommendations() {
+  var section = document.getElementById('recSection');
+  var overlay = document.getElementById('productModal');
+  if (!section || !overlay) return;
+  var panel = overlay.querySelector('.product-modal');
+  if (panel) panel.scrollTo({ top: Math.max(0, section.offsetTop - 24), behavior: 'smooth' });
+}
+
+function scrollRecommendations(direction) {
+  var list = document.getElementById('recList');
+  if (!list) return;
+  var step = Math.max(180, list.clientWidth * 0.8);
+  if (list.scrollBy) list.scrollBy({ left: direction * step, behavior: 'smooth' });
+  else list.scrollLeft += direction * step;
+}
+
+function updateRecArrows() {
+  var list = document.getElementById('recList');
+  var prev = document.getElementById('recPrev');
+  var next = document.getElementById('recNext');
+  if (!list || !prev || !next) return;
+  var hasOverflow = list.scrollWidth > list.clientWidth + 4;
+  prev.disabled = !hasOverflow || list.scrollLeft <= 2;
+  next.disabled = !hasOverflow || (list.scrollLeft + list.clientWidth) >= (list.scrollWidth - 2);
+}
+
+function refreshRecWishlistStates() {
+  var list = document.getElementById('recList');
+  if (!list) return;
+  Array.prototype.forEach.call(list.querySelectorAll('.rec-save'), function(btn) {
+    var id = btn.getAttribute('data-rec-id');
+    var saved = isWishlisted(id);
+    btn.classList.toggle('saved', saved);
+    btn.textContent = saved ? '♥' : '♡';
+    btn.setAttribute('aria-pressed', saved ? 'true' : 'false');
+    btn.setAttribute('aria-label', saved ? 'Remove from wishlist' : 'Save to wishlist');
+    btn.setAttribute('title', saved ? 'Saved to wishlist' : 'Save to wishlist');
+  });
+}
+
+function initRecommendations() {
+  var list = document.getElementById('recList');
+  if (list) {
+    list.addEventListener('scroll', updateRecArrows, { passive: true });
+  }
+  window.addEventListener('resize', updateRecArrows);
+  // keep the heart icons in sync whenever wishlist is toggled anywhere in the site
+  var baseToggleWishlist = toggleWishlist;
+  toggleWishlist = function(id) {
+    baseToggleWishlist(id);
+    refreshRecWishlistStates();
+  };
+}
+
+initRecommendations();
+
 </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5440de68bb40fac',t:'MTc5MzYzMjEwMw=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5440de68bb40fac',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
